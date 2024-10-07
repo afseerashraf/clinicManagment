@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class AdminRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class AdminRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,10 @@ class AdminRequest extends FormRequest
     public function rules(): array
     {
         return [
-            
+            'name' =>['required', 'alpha'],
+            'email' => ['required', 'email'],
+            'phone' =>['required', 'numeric',  'digits_between:10,12'],
+            'password' => ['required',password::min(8)->letters()->numbers()]
         ];
     }
 }
