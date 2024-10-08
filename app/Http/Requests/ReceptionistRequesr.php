@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
-class AdminRequest extends FormRequest
+class ReceptionistRequesr extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,6 +25,7 @@ class AdminRequest extends FormRequest
         return [
             'name' =>['required', 'regex:/^[a-zA-Z\s]+$/'],
             'email' => ['required', 'email'],
+            'place' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
             'phone' =>['required', 'numeric',  'digits_between:10,12'],
             'password' => ['required',password::min(8)->letters()->numbers()]
         ];

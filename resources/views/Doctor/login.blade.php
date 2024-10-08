@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section('title')Admin Login @endsection
+@section('title')Doctor Login @endsection
 <style>
         * {
 
@@ -26,9 +26,10 @@
 @section('content')
 
 <div class="continer">
-        <h3>Register Form</h3>
-        <a href="">already have an account</a>
-        <form action="{{ route('admin.login') }}" method="post">
+
+        <h3>Login Form</h3>
+        <a href="{{ route('doctor.index') }}">Register</a>
+        <form action="{{ route('doctor.doLogin') }}" method="post">
            @csrf
            
             <label for="email">email</label><br>

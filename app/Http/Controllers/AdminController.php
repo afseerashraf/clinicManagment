@@ -26,8 +26,9 @@ class AdminController extends Controller
     }
     public function login(AdminRequest $request){
         $credentials = $request->only('email', 'password');
-        if(auth()->guard('admins')->attempt($credentials)){
-            return 'succes';
+        if(auth()->guard('admin')->attempt($credentials)){
+            $admin = auth()->guard('admin')->user();
+            return view('admin.profile', compact('admin'));
         }else{
             return 'fail';
         }

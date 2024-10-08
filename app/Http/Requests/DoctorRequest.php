@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
-class AdminRequest extends FormRequest
+class DoctorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,9 @@ class AdminRequest extends FormRequest
             'name' =>['required', 'regex:/^[a-zA-Z\s]+$/'],
             'email' => ['required', 'email'],
             'phone' =>['required', 'numeric',  'digits_between:10,12'],
-            'password' => ['required',password::min(8)->letters()->numbers()]
+            'specialized' => ['required', 'alpha'],
+            'password' => ['required',password::min(8)->letters()->numbers()],
+
         ];
     }
 }

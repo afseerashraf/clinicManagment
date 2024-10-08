@@ -43,6 +43,10 @@ return [
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
+        ],
+        'doctor' => [
+            'driver' => 'session',
+            'provider' => 'doctors',
         ]
     ],
 
@@ -71,6 +75,10 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\Admin::class),
+        ],
+        'doctors' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\Doctor::class),
         ],
 
         // 'users' => [

@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Password;
 
-class AdminRequest extends FormRequest
+class PatientRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +22,16 @@ class AdminRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'date' => ['required', 'date'],
             'name' =>['required', 'regex:/^[a-zA-Z\s]+$/'],
-            'email' => ['required', 'email'],
+            'age' => ['required', 'numeric'],
             'phone' =>['required', 'numeric',  'digits_between:10,12'],
-            'password' => ['required',password::min(8)->letters()->numbers()]
+            'email' => ['required', 'email'],
+            'place' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
+            'house' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
+            'medicalHistory' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
+            'doctor_id' => ['required', 'numeric'],
+            
         ];
     }
 }
