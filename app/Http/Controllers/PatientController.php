@@ -6,6 +6,9 @@ use App\Http\Requests\PatientRequest;
 use Illuminate\Http\Request;
 use App\Models\Patient;
 use App\Models\Doctor;
+use App\Models\Treatment;
+use Illuminate\Support\Facades\Crypt;
+
 class PatientController extends Controller
 {
     public function index(){
@@ -31,4 +34,22 @@ class PatientController extends Controller
         $patients = Patient::all();
         return view('patient.appoinment', compact('patients'));
     }
+    public function treatment($id){
+        $patientId = Crypt::decrypt($id);
+        $patient = Patient::find($patientId);
+        return view('patient.treatment', compact('patient'));
+    }
+    public function treatments(Request $request){
+        $patientID = Crypt::decrypt($request->patient_id);
+        $patient = Patient::find($patientID);
+        $treatment = new Treatment();
+        $treatment->doctor_id = $patient->doctors->id;
+        $treatment->patient_id = $patient->id;
+        $treatment->treatment_description = $request->treatment_description;
+        $treatment->additional_notes = $request->additional_notes;
+        $treatment->check_in = now();
+        $treatment->save();
+        return redirect()->back()->with('success', 'Treatment and check-in time recorded.');
+    }
+   
 }

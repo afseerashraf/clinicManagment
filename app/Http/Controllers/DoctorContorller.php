@@ -6,6 +6,7 @@ use App\Http\Requests\DoctorRequest;
 use Illuminate\Http\Request;
 use App\Models\Doctor;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Crypt;
 
 class DoctorContorller extends Controller
 {
@@ -46,5 +47,13 @@ class DoctorContorller extends Controller
         $doctors = Doctor::all();
         return view('doctor.list', compact('doctors'));
     }
+
+    public function profile(){
+        $doctor = Doctor::find(2);
+        return view('doctor.profile', compact('doctor'));
+    }
+    
+
+    
 }
 

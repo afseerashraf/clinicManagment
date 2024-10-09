@@ -30,7 +30,7 @@ class ReceptionistController extends Controller
     public function login(ReceptionistRequest $request){
         $credentials = $request->only('email', 'password');
         if(auth()->guard('recetionist')->attempt($credentials)){
-            return redirect()->route('hellow');
+            return redirect()->route('patient.index');
         }else{
             return "$credentials wrong";
         }

@@ -6,6 +6,7 @@ use App\Http\Controllers\DoctorContorller;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ReceptionistController;
 use App\Http\Middleware\Receptionist;
+use App\Http\Controllers\TreatmentController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -15,7 +16,7 @@ Route::get('/', function () {
         Route::post('register', 'register')->name('admin.register');
         Route::get('login', 'adminLogin')->name('admin.login');
         Route::post('login', 'login')->name('admin.login');
-        Route::get('dashboard', 'dashoard')->name('admin.dashboard');
+        Route::get('dashboard', 'dashoard')->name('admin.dashboard')->middleware('auth:admin');
     });
 
     Route::prefix('doctor')->controller(DoctorContorller::class)->group(function(){
@@ -23,7 +24,7 @@ Route::get('/', function () {
         Route::post('register', 'register')->name('doctor.register');
         Route::get('login', 'doctorLogin')->name('doctor.login');
         Route::post('dologin', 'login')->name('doctor.doLogin');
-        Route::get('profile', 'profile')->name('doctor.profile')->middleware('auth:doctor');
+        Route::get('profile', 'profile')->name('doctor.profile');
         Route::get('show', 'show')->name('doctor.show');//this route only access the admin
     }); 
     Route::prefix('receptionist')->controller(ReceptionistController::class)->group(function(){
@@ -39,11 +40,16 @@ Route::get('/', function () {
             return view('admin.dashboard');
         })->name('hellow');
    
-   
-
-Route::prefix('patient')->controller(PatientController::class)->group(function(){
+   Route::prefix('patient')->controller(PatientController::class)->group(function(){
     Route::get('patient', 'index')->name('patient.index'); // access the receptionist
     Route::post('register', 'register')->name('patient.register'); //patient registration assign specialized doctors
     Route::get('patients', 'show')->name('pateint.view'); // only admin can access the route
+    Route::get('treatment/{id}', 'treatment')->name('doctor.treatment');
+    Route::post('treatments', 'treatments')->name('treatment');
+
+});
+
+Route::prefix('treatment')->controller(TreatmentController::class)->group(function(){
+
 });
 

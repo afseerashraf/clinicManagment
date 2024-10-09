@@ -47,8 +47,7 @@
                 <a class="" href="{{ route('doctor.show') }}">Doctors</a>
                 <a href="{{ route('pateint.view') }}">Patients</a>
                 <a href="{{ route('receptionist.show') }}">Receptionists</a>
-                
-
+            
                 <a href="#">Payment</a>
             </div>
 

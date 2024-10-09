@@ -1,16 +1,22 @@
 @extends('layout.layout')
 @section('title')Doctor profile @endsection
-
+<style>
+    .doctor{
+        margin-left: 50px;
+    }
+</style>
 @section('content')
 <div class="continer">
+    <div class="doctor">
     <img src="{{ asset('storage/images/'.$doctor->image) }}" alt="doctor image">
     <ul>
         <li>Name: {{ $doctor->name }}</li>
         <li>Email: {{ $doctor->email }}</li>
         <li>Specialized: {{ $doctor->specialized }}</li>
         </ul>
+</div>
        <h3>patients</h3>
-       
+       <!-- patient detiels -->
       <table class="table">
         <thead>
             <tr>
@@ -19,6 +25,7 @@
                 <th>Age</th>
                 <th>Place</th>
                 <th>Medical History</th>
+                <th>Treatment</th>
             </tr>
             <tbody>
             @foreach($doctor->patients as $patient)  
@@ -28,6 +35,9 @@
                     <td>{{ $patient->age }}</td>
                     <td>{{ $patient->place }}</td>
                     <td>{{ $patient->medical_history }}</td>
+                    <td>
+                        <a href="{{ route('doctor.treatment', encrypt($patient->id)) }}" class="btn btn-outline-primary">Treatment</a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
