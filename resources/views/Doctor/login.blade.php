@@ -27,7 +27,7 @@
 
 <div class="continer">
 
-        <h3>Login Form</h3>
+        <h3>Doctor Login Form</h3>
         <a href="{{ route('doctor.index') }}">Register</a>
         <form action="{{ route('doctor.doLogin') }}" method="post">
            @csrf
@@ -39,7 +39,7 @@
             <label for="password">Password</label><br>
             <input type="password" class="form-controller" name="password" placeholder="password"><br><br>
             @error('password') <div class="alert alert-danger">{{ $message }}</div>@enderror
-            <input type="submit" class="btn btn-outline-primary" value="register">
+            <input type="submit" class="btn btn-outline-primary" value="Login">
         </form>
     </div>
 @endsection

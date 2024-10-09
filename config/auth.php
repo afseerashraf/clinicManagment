@@ -47,6 +47,10 @@ return [
         'doctor' => [
             'driver' => 'session',
             'provider' => 'doctors',
+        ],
+        'receptionist' => [
+            'driver' => 'session',
+            'provider' => 'recetionists',
         ]
     ],
 
@@ -79,6 +83,11 @@ return [
         'doctors' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\Doctor::class),
+        ],
+
+        'recetionists' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\Receptionist::class),
         ],
 
         // 'users' => [

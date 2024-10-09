@@ -28,7 +28,7 @@
 @section('content')
 
 <div class="continer">
-        <h3>Register Form</h3>
+        <h3>Doctor Register Form</h3>
         <a href="{{ route('doctor.login') }}">login</a>
         <form action="{{ route('doctor.register') }}" method="post" enctype="multipart/form-data">
            @csrf

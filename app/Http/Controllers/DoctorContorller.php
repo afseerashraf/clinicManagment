@@ -32,13 +32,19 @@ class DoctorContorller extends Controller
     public function doctorLogin(){
         return view('doctor.login');
     }
-    public function profile(){
-        // $credentials = $request->only('email', 'password');
-        // if(auth()->guard('doctor')->attempt($credentials)){
-        //     $doctor = auth()->guard('doctor')->user();
-        $doctor = Doctor::find(2);
-        return view('doctor.profile', compact('doctor'));
+    public function login(DoctorRequest $request){
+        $credentials = $request->only('email', 'password');
+        if(auth()->guard('doctor')->attempt($credentials)){
+            $doctor = auth()->guard('doctor')->user();
+            return view('doctor.profile', compact('doctor'));
+        }else{
+            return 'no';
         }
-        
+    
     }
+    public function show(){
+        $doctors = Doctor::all();
+        return view('doctor.list', compact('doctors'));
+    }
+}
 

@@ -28,9 +28,13 @@ class AdminController extends Controller
         $credentials = $request->only('email', 'password');
         if(auth()->guard('admin')->attempt($credentials)){
             $admin = auth()->guard('admin')->user();
-            return view('admin.profile', compact('admin'));
+            return view('admin.dashboard', compact('admin'));
         }else{
             return 'fail';
         }
+    }
+
+    public function dashoard(){
+        return view('admin.dashboard');
     }
 }

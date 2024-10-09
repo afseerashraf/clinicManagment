@@ -27,7 +27,7 @@ class PatientController extends Controller
         return redirect()->route('pateint.view');
 
     }
-    public function patients(){
+    public function show(){
         $patients = Patient::all();
         return view('patient.appoinment', compact('patients'));
     }

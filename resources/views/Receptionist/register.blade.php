@@ -26,11 +26,11 @@
 @section('content')
 
 <div class="continer">
-        <h3>Register Form</h3>
-        <a href="">already have an account</a>
+        <h3>Receptionist Register Form</h3>
+        <a href="{{ route('receptionist.login') }}">already have an account</a>
         <form action="{{ route('receptionist.register') }}" method="post">
            @csrf
-            <label for="name">Name</label><br>
+            <labl for="name">Name</labl><br>
             <input type="text" class="form-controller" name="name" placeholder="Name"><br>
             @error('name') <div class="alert alert-danger">{{ $message }}</div> @enderror
            

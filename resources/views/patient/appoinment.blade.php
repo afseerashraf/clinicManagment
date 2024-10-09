@@ -1,9 +1,8 @@
-@extends('layout.layout')
-@section('title')Patient appoinment @endsection
-
-
+@extends('layout.adminLayout')
+@section('title')Admin Dashboard @endsection
 @section('content')
 
+<h3>Patients</h3>
 <table class="table">
         <thead>
             <tr>
