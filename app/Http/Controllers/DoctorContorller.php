@@ -24,7 +24,7 @@ class DoctorContorller extends Controller
        if($request->hasfile('image')){
         $fileName = time().'_'.$request->image->getClientOriginalExtension();
         Storage::putFileAs('uploads/images', $request->image, $fileName);
-        $input['image'] = [$fileName];
+        $input['image'] = $fileName;
        }
        $doctor = Doctor::create($input);
        return redirect()->route('doctor.login');
@@ -49,8 +49,15 @@ class DoctorContorller extends Controller
     }
 
     public function profile(){
-        $doctor = Doctor::find(2);
+        $doctor = Doctor::find(1);
         return view('doctor.profile', compact('doctor'));
+    }
+
+    public function delete($id){
+        $doctor = Doctor::find(Crypt::decrypt($id));
+        $doctor->delete();
+        return redirect()->route('doctor.show');
+
     }
     
 

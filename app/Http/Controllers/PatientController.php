@@ -31,7 +31,7 @@ class PatientController extends Controller
 
     }
     public function show(){
-        $patients = Patient::all();
+        $patients = Patient::orderBy('appoinment_date', 'desc')->get();
         return view('patient.appoinment', compact('patients'));
     }
     public function treatment($id){
@@ -40,16 +40,18 @@ class PatientController extends Controller
         return view('patient.treatment', compact('patient'));
     }
     public function treatments(Request $request){
-        $patientID = Crypt::decrypt($request->patient_id);
-        $patient = Patient::find($patientID);
+        $patient = Patient::find(Crypt::decrypt($request->patient_id));
         $treatment = new Treatment();
-        $treatment->doctor_id = $patient->doctors->id;
+        $treatment->doctor_id = $patient->doctor->id;
         $treatment->patient_id = $patient->id;
         $treatment->treatment_description = $request->treatment_description;
         $treatment->additional_notes = $request->additional_notes;
         $treatment->check_in = now();
         $treatment->save();
-        return redirect()->back()->with('success', 'Treatment and check-in time recorded.');
+        // $treatmentId = Treatment::find($treatment->id);
+    
+        // return $treatmentId;
+        return redirect()->route('doctor.profile', compact('patient'));
     }
    
 }

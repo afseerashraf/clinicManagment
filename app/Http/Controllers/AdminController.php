@@ -25,16 +25,18 @@ class AdminController extends Controller
         return view('admin.login');
     }
     public function login(AdminRequest $request){
-        $credentials = $request->only('email', 'password');
-        if(auth()->guard('admin')->attempt($credentials)){
+        $credentials = ['email' => request('email'), 'password' => request('password')];
+        if(Auth::guard('admin')->attempt($credentials)){
             $admin = auth()->guard('admin')->user();
             return view('admin.dashboard', compact('admin'));
         }else{
             return 'fail';
         }
+
     }
 
     public function dashoard(){
-        return view('admin.dashboard');
+        $admin = Admin::find(1);
+        return view('admin.dashboard', compact('admin'));
     }
 }

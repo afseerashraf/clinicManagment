@@ -8,5 +8,8 @@ use App\Models\Patient;
 use App\Models\Treatment;
 class TreatmentController extends Controller
 {
-   
+   public function patientsTreatment(){
+    $treatments = Treatment::all();
+    return view('treatment.list', compact('treatments'));
+   }
 }

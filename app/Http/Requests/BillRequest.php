@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Password;
 
-class DoctorRequest extends FormRequest
+class BillRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,13 +22,8 @@ class DoctorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' =>['required', 'regex:/^[a-zA-Z\s]+$/'],
-            'email' => ['required', 'email'],
-            'phone' =>['required', 'numeric',  'digits_between:10,12'],
-            'specialized' => ['required', 'alpha'],
-            'password' => ['required',password::min(8)->letters()->numbers()],
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-
+            'doctor_fees' => ['required', 'numeric'],
+            'treatment_fees' => ['required', 'numeric'],
         ];
     }
 }

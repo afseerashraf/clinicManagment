@@ -14,6 +14,10 @@ class Doctor extends Model
         return $this->hasMany(Patient::class);
     }
 
+    public function treatment(){
+        return $this->hasMany(Treatment::class);
+    }
+
     protected function casts(): array
    {
        return [

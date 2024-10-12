@@ -5,14 +5,24 @@
     height: 300px;
     width: 300px;
     margin-left: 300px;
+    padding-top: 100px;
+}
+.detiles{
+    margin-left: 170px;
 }
 </style>
 @section('content')
-<Ul>
-    <li>Name: {{ $patient->name }} </li>
-    <li>Age: {{ $patient->age }} </li>
-    <li>Phone: {{ $patient->phone }}</li>
-</Ul>
+<div class="detiles">
+    <Ul>
+    <b>
+        <li>Name: {{ $patient->name }} </li>
+        <li>Age: {{ $patient->age }} </li>
+        <li>Phone: {{ $patient->medical_history }}</li>
+        <li>Doctor: {{ $patient->doctor->name }}</li>
+    </b>
+    </Ul>
+</div>
+
 <div class="treatment">
 <form action="{{ route('treatment') }}" method="POST">
     @csrf

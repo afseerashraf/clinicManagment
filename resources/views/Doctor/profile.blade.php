@@ -2,7 +2,7 @@
 @section('title')Doctor profile @endsection
 <style>
     .doctor{
-        margin-left: 50px;
+        margin-left: 50p;
     }
 </style>
 @section('content')
@@ -46,3 +46,6 @@
     
 </div>
 @endsection
+
+
+               

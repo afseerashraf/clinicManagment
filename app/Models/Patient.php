@@ -10,7 +10,11 @@ class Patient extends Model
     use HasFactory;
     protected $fillable = ['name', 'phone', 'email', 'place', 'house', 'medical_history', 'doctor_id'];
 
-    public function doctors(){
+    public function doctor(){
         return $this->belongsTo(Doctor::class, 'doctor_id', 'id');
+    }
+
+    public function treatment(){
+        return $this->hasOne(Treatment::class);
     }
 }
