@@ -8,7 +8,9 @@
 @section('content')
 <div class="continer">
     <div class="doctor">
-    <img src="{{ asset('storage/images/'.$doctor->image) }}" alt="doctor image">
+   @if($doctor->image) 
+   <img src="{{ asset('storage/images/'.$doctor->image) }}" alt="doctor image">
+   @endif
     <ul>
         <li>Name: {{ $doctor->name }}</li>
         <li>Email: {{ $doctor->email }}</li>
@@ -28,7 +30,7 @@
                 <th>Treatment</th>
             </tr>
             <tbody>
-            @foreach($doctor->patients as $patient)  
+            @foreach($patients as $patient)  
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $patient->name }}</td>

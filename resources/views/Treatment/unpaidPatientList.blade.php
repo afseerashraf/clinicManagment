@@ -11,14 +11,21 @@
             <th>Doctor Name</th>
             <th>Specialized</th>
             <th>Treatment Description</th>
-            <th>Date</th>
+            <th>check In</th>
+            <th>Action</th>
 
         </tr>
     <tbody>
         @foreach($treatments as $treatment)
         <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $treatment->patient->name }}</td>
+            <td>
+                @if($treatment->patient)
+                    {{ $treatment->patient->name }}
+                @else
+                <b style="color:red;"> The patient has been closed.</b>
+                @endif
+            </td>
             <td>
                 @if($treatment->doctor)
                     {{ $treatment->doctor->name }}
@@ -33,8 +40,15 @@
                     <b style="color:red;">The doctor has resigned from this clinic.</b>
                 @endif
             </td>
-            <td>{{ $treatment->treatment_description }}</td>
+            <td>{{ $treatment->treatment_description }}({{ $treatment->additional_notes }})</td>
             <td>{{ $treatment->check_in }}</td>
+            <td>
+                @if(!$treatment->patient || !$treatment->doctor)
+                <a href="{{ route('treatment.delete', encrypt($treatment->id)) }}" class="btn btn-danger">Delete</a>
+                @else
+                <a href="{{ route('treatment_bill', encrypt($treatment->id)) }}" class="btn btn-success">Bill</a>
+                @endif
+            </td>
         </tr>
         @endforeach
     </tbody>

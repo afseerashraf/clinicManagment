@@ -49,8 +49,9 @@ class DoctorContorller extends Controller
     }
 
     public function profile(){
-        $doctor = Doctor::find(1);
-        return view('doctor.profile', compact('doctor'));
+        $doctor = Doctor::find(7);
+        $patients = $doctor->patients()->whereDoesntHave('treatment')->get(); // select the patients who not get treatment
+        return view('doctor.profile', compact('doctor', 'patients'));
     }
 
     public function delete($id){

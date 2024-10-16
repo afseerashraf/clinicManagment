@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tests', function (Blueprint $table) {
+        Schema::create('patient_bills', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('doctor_id');
-            $table->string('name');
-            $table->foreign('doctor_id')->references('doctors')->on('id');
+            $table->unsignedBigInteger('treatment_id');
+            $table->double('doctor_fees');
+            $table->double('additional_charges')->comment('any test');
+            $table->double('total_amount');
+            $table->foreign('treatment_id')->references('id')->on('treatments');
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tests');
+        Schema::dropIfExists('bills');
     }
 };

@@ -27,8 +27,7 @@ class PatientController extends Controller
         $patient->medical_history = $request->medicalHistory;
         $patient->doctor_id = $request->doctor_id;
         $patient->save();
-        return redirect()->route('pateint.view');
-
+        return redirect()->route('patient.view');
     }
     public function show(){
         $patients = Patient::orderBy('appoinment_date', 'desc')->get();
@@ -48,10 +47,35 @@ class PatientController extends Controller
         $treatment->additional_notes = $request->additional_notes;
         $treatment->check_in = now();
         $treatment->save();
-        // $treatmentId = Treatment::find($treatment->id);
-    
-        // return $treatmentId;
         return redirect()->route('doctor.profile', compact('patient'));
+    }
+    public function edit($id){
+        $patient = Patient::find(Crypt::decrypt($id));
+        $doctors = Doctor::all();
+        return view('patient.edit', compact('patient', 'doctors'));
+    }
+    public function update(PatientRequest $request){
+        $patient = Patient::find(Crypt::decrypt($request->patient_id));
+        $input = [
+            'appoinment_date' => $request->date,
+            'name' => $request->name,
+            'age' => $request->age,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'place' => $request->place,
+            'house' => $request->house,
+            'medical_history' => $request->medicalHistory,
+            'doctor_id' => $request->doctor_id,
+        ];
+        $patient->update($input);
+        $patient->save();
+        return redirect()->route('patient.view');
+    }
+    public function destroy($id){
+        $patient = Patient::find(Crypt::decrypt($id));
+        $patient->delete();
+        return redirect()->route('patient.view')->with('messege', $patient->name.'succefully deleted');
+        
     }
    
 }
