@@ -14,6 +14,7 @@
             <th>Place</th>
             <th>Medical History</th>
             <th>Doctor</th>
+            <th>Appoinment Date</th>
             <th>Action</th>
         </tr>
     <tbody>
@@ -31,6 +32,7 @@
                 The doctor has resigned from this clinic.
                 @endif
             </td>
+            <td>{{ \Carbon\Carbon::parse($patient->appoinment_date)->format('Y-F-d') }}</td>
             <td>
                 @if(!$patient->doctor)
                     <a href="{{ route('patient.delete', encrypt($patient->id)) }}" class="btn">delete</a>
@@ -38,6 +40,7 @@
                     <a href="{{ route('patient.edit', encrypt($patient->id)) }}" class="btn btn-danger" class="btn btn-outline-success">update</a>
                 @endif
             </td>
+            
         </tr>
         @endforeach
     </tbody>

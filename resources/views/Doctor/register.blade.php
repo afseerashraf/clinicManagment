@@ -29,7 +29,7 @@
 
 <div class="continer">
         <h3>Doctor Register Form</h3>
-        <a href="{{ route('doctor.login') }}">login</a>
+        <a href="{{ route('showDoctor.login') }}">login</a>
         <form action="{{ route('doctor.register') }}" method="post" enctype="multipart/form-data">
            @csrf
             <label for="name">Name</label><br>

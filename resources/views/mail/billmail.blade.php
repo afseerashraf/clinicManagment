@@ -1,12 +1,12 @@
 <ul>
-    <li> {{ $paybill->treatment->patient->name }} </li>
-    <li> {{ $paybill->treatment->doctor->name }} </li>
-    <li>{{ $paybill->doctor_fees }}</li>
+    <li> Name: {{ $patientBill->treatment->patient->name }} </li>
+    <li> Doctor: {{ $patientBill->treatment->doctor->name }} </li>
+    <li>Doctor Fees: {{ $patientBill->doctor_fees }}</li>
     <li>
-     @if( $paybill->additional_charges)
-        {{ $paybill->additional_charges }}
+     @if( $patientBill->additional_charges)
+       Additional charges: {{ $patientBill->additional_charges }}
     @endif
      </li>
-     <h3>{{ $paybill->total_amount }}</h3>
+     <h3>total amount{{ $patientBill->total_amount }}</h3>
    
 </ul>

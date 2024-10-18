@@ -17,26 +17,36 @@ Route::get('/', function () {
 });
 
 Route::prefix('admin')->controller(AdminController::class)->group(function () {
-    Route::get('admin', 'index')->name('register');
+    Route::get('/', 'index')->name('showAdmin.register');
     Route::post('register', 'register')->name('admin.register');
-    Route::get('login', 'adminLogin')->name('admin.login');
+    Route::get('login', 'adminLogin')->name('ashowAdmin.login');
     Route::post('login', 'login')->name('admin.login');
-    Route::get('dashboard', 'dashoard')->name('admin.dashboard'); // admin can handle the all users.
+   // Route::middleware('auth:admin')->group(function(){
+        Route::get('dashboard', 'dashoard')->name('admin.dashboard'); // admin can handle the all users.
+        Route::post('logout/{id}', 'logout')->name('admin.logout');
+    //});
+    
 });
 
 Route::prefix('doctor')->controller(DoctorContorller::class)->group(function () {
     Route::get('doctor', 'index')->name('doctor.index');
     Route::post('register', 'register')->name('doctor.register');
-    Route::get('login', 'doctorLogin')->name('doctor.login');
+    Route::get('login', 'doctorLogin')->name('showDoctor.login');
     Route::post('dologin', 'login')->name('doctor.doLogin');
-    Route::get('profile', 'profile')->name('doctor.profile'); // doctor can only allow to access this route.
-    Route::get('show', 'show')->name('doctor.show'); // it show all the registered doctors this route only access the admin.
-    Route::get('delete/{id}', 'delete')->name('delete.doctor');
-});
+    //Route::middleware('auth:admin')->group(function(){
+        Route::get('profile', 'profile')->name('doctor.profile')->withoutMiddleware('auth:admin'); // doctor can only allow to access this route.
+        Route::get('show', 'show')->name('doctor.show'); // it show all the registered doctors this route only access the admin.
+        Route::get('delete/{id}', 'delete')->name('delete.doctor');
+        Route::post('patient', 'getPatient')->name('getPatient');
+    });
+    
+   // });
+    
+
 Route::prefix('receptionist')->controller(ReceptionistController::class)->group(function () {
     Route::get('index', 'index')->name('receptionist.index');
     Route::post('register', 'register')->name('receptionist.register');
-    Route::get('login', 'receptionistLogin')->name('receptionist.login');
+    Route::get('login', 'receptionistLogin')->name('showReceptionist.login');
     Route::post('dologin', 'login')->name('receptionist.dologin');
     Route::get('show', 'show')->name('receptionist.show'); //it show the all registered receptionist only admin can access this route.
 
@@ -57,7 +67,7 @@ Route::prefix('patient')->controller(PatientController::class)->group(function (
     Route::get('delete/{id}', 'destroy')->name('patient.delete');
 });
 Route::prefix('treatment')->controller(TreatmentController::class)->group(function () {
-    Route::get('list', 'unpaidPatients')->name('unpaid.patients'); // it show all treatment taken patietns admin can only access this route
+    Route::get('list', 'unpaidPatients')->name('unpaid.patients'); // it show all unpaid patients admin can only access this route
     Route::get('delete/{id}', 'destroyPatient')->name('treatment.delete');
     Route::get('bill/{id}', 'bill' )->name('treatment_bill');
 });

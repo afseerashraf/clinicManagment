@@ -23,13 +23,14 @@ class DoctorRequest extends FormRequest
     public function rules(): array
     {
         return [
+        
             'name' =>['required', 'regex:/^[a-zA-Z\s]+$/'],
             'email' => ['required', 'email'],
             'phone' =>['required', 'numeric',  'digits_between:10,12'],
             'specialized' => ['required', 'alpha'],
             'password' => ['required',password::min(8)->letters()->numbers()],
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-
+            'patientName' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
         ];
     }
 }

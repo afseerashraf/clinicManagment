@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Doctor;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Crypt;
-
 class DoctorContorller extends Controller
 {
     public function index(){
@@ -39,7 +38,7 @@ class DoctorContorller extends Controller
             $doctor = auth()->guard('doctor')->user();
             return view('doctor.profile', compact('doctor'));
         }else{
-            return 'no';
+            return redirect()->route('showDoctor.login');
         }
     
     }
@@ -49,7 +48,7 @@ class DoctorContorller extends Controller
     }
 
     public function profile(){
-        $doctor = Doctor::find(7);
+        $doctor = Doctor::find(8);
         $patients = $doctor->patients()->whereDoesntHave('treatment')->get(); // select the patients who not get treatment
         return view('doctor.profile', compact('doctor', 'patients'));
     }
@@ -59,6 +58,12 @@ class DoctorContorller extends Controller
         $doctor->delete();
         return redirect()->route('doctor.show');
 
+    }
+    public function getPatient(DoctorRequest $request){
+        $doctorId = Crypt::decrypt($request->doctor_id);
+        $doctor = Doctor::find($doctorId);
+        $patient = $doctor->patients()->where('name', '=', $request->patientName)->get();
+        return view('doctor.patient', compact('patient'));
     }
     
 

@@ -27,7 +27,7 @@
 
 <div class="continer">
         <h3>Receptionist Register Form</h3>
-        <a href="{{ route('receptionist.login') }}">already have an account</a>
+        <a href="{{ route('showReceptionist.login') }}">already have an account</a>
         <form action="{{ route('receptionist.register') }}" method="post">
            @csrf
             <labl for="name">Name</labl><br>

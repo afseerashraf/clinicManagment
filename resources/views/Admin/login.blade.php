@@ -27,7 +27,7 @@
 
 <div class="continer">
         <h3>Admin Login Form</h3>
-       <a href="{{ route('register') }}">no have account</a>
+       <a href="{{ route('showAdmin.register') }}">no have account</a>
         <form action="{{ route('admin.login') }}" method="post">
            @csrf
            

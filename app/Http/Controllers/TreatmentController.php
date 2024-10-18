@@ -10,8 +10,8 @@ use App\Models\Treatment;
 class TreatmentController extends Controller
 {
    public function unpaidPatients(){
-    $treatments = Treatment::whereDoesntHave('bill')->get(); //fetch the tretment geted patient who not paid bill.
-    return view('treatment.unpaidPatientList', compact('treatments'));
+      $treatments = Treatment::whereDoesntHave('bill')->get(); //fetch the tretment geted patient who not paid bill.
+      return view('treatment.unpaidPatientList', compact('treatments'));
    }
    public function destroyPatient($id){
       $patient = Treatment::find(Crypt::decrypt($id));

@@ -16,10 +16,10 @@ class PatientBill extends Mailable
     /**
      * Create a new message instance.
      */
-    public $paybill;
-    public function __construct($payBill)
+    public $patientBill;
+    public function __construct($patientBill)
     {
-        $this->paybill = $payBill;
+        $this->patientBill = $patientBill;
     }
 
     /**
@@ -38,7 +38,7 @@ class PatientBill extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.mail.billmail',
+            view: 'mail.billmail',
         );
     }
 
