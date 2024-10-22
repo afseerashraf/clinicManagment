@@ -5,9 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Auth;
 
-class Receptionist
+class AdminOrReceptionist
 {
     /**
      * Handle an incoming request.
@@ -16,10 +15,11 @@ class Receptionist
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->guard('receptionist')->check()){
+        if (auth()->guard('admin')->check() || auth()->guard('receptionist')->check()) {
+
             return $next($request);
-    }else{
-        return redirect()->route('receptionist.login');
+        }else{
+            return redirect()->route('login');
+        }
     }
-}
 }

@@ -7,6 +7,7 @@ use App\Http\Requests\AdminRequest;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use App\Models\Doctor;
 class AdminController extends Controller
 {
     public function index(){
@@ -26,12 +27,11 @@ class AdminController extends Controller
     }
     public function login(AdminRequest $request){
         $credentials = ['email' => request('email'), 'password' => request('password')];
-        if(Auth::guard('admin')->attempt($credentials)){
+        if(auth()->guard('admin')->attempt($credentials)){
             $admin = auth()->guard('admin')->user();
             return view('admin.dashboard', compact('admin'));
-           
         }else{
-           
+           return redirect()->route('showAdmin.login');
         }
 
     }
@@ -39,8 +39,11 @@ class AdminController extends Controller
         $admin = Admin::find(1);
         return view('admin.dashboard', compact('admin'));
     }
+  
+
     public function logout($id){
         $admin = Admin::find(Crypt::decrypt($id));
-        $admin->auth()->guard('admin')->logout();
+        auth()->guard('admin')->logout();
+        return redirect()->route('showAdmin.login');
     }
 }

@@ -1,45 +1,95 @@
 @extends('layout.layout')
-@section('title')Doctor Login @endsection
-<style>
-        * {
 
-            padding-left: 12px;
-        }
+@section('title', 'Doctor Login')
 
-        .continer {
-            padding-top: 12px;
-            text-decoration: none;
-            margin-top: 150px;
-            margin-left: 300px;
-            font-style: oblique;
-            background-color: #f2e7e5;
-            width: 454px;
-            height: 325px;
-            box-shadow: 1px 1px 1px 1px;
-
-        }
-
-        input {
-            width: 400px;
-        }
-    </style>
 @section('content')
 
-<div class="continer">
+<style>
+    body {
+        background-color: #e3f2fd;
+    }
 
-        <h3>Doctor Login Form</h3>
-        <a href="{{ route('doctor.index') }}">Register</a>
-        <form action="{{ route('doctor.doLogin') }}" method="post">
-           @csrf
-           
-            <label for="email">email</label><br>
-            <input type="email" class="form-controller" name="email" placeholder="email"><br>
+    .container {
+        margin-top: 100px;
+        max-width: 400px;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    h3 {
+        text-align: center;
+        color: #0d6efd;
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    input[type="email"], 
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #0d6efd;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .btn:hover {
+        background-color: #0b5ed7;
+    }
+
+    a {
+        display: block;
+        text-align: center;
+        margin-top: 15px;
+        color: #0d6efd;
+    }
+
+    .alert {
+        margin-top: 10px;
+        padding: 8px;
+        font-size: 14px;
+    }
+</style>
+
+<div class="container">
+    <h3>Doctor Login Form</h3>
+    <a href="{{ route('doctor.index') }}">Don't have an account? Register here</a>
+
+    <form action="{{ route('doctor.doLogin') }}" method="post">
+        @csrf
+        
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
             @error('email') <div class="alert alert-danger">{{ $message }}</div> @enderror
-          
-            <label for="password">Password</label><br>
-            <input type="password" class="form-controller" name="password" placeholder="password"><br><br>
-            @error('password') <div class="alert alert-danger">{{ $message }}</div>@enderror
-            <input type="submit" class="btn btn-outline-primary" value="Login">
-        </form>
-    </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Password">
+            @error('password') <div class="alert alert-danger">{{ $message }}</div> @enderror
+        </div>
+
+        <button type="submit" class="btn">Login</button>
+    </form>
+</div>
+
 @endsection

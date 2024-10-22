@@ -1,48 +1,72 @@
 @extends('layout.layout')
-@section('title')Admin Register @endsection
-<style>
-        * {
 
-            padding-left: 12px;
-        }
+@section('title', 'Admin Register')
 
-        .continer {
-            padding-top: 12px;
-            text-decoration: none;
-            margin-top: 150px;
-            margin-left: 300px;
-            font-style: oblique;
-            background-color: #f2e7e5;
-            width: 454px;
-            height: 391px;
-            box-shadow: 1px 1px 1px 1px;
-
-        }
-
-        input {
-            width: 400px;
-        }
-    </style>
 @section('content')
 
-<div class="continer">
+<style>
+    .register-container {
+        padding-top: 50px;
+        background-color: #f2e7e5;
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .register-container h3 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .register-container form {
+        padding: 20px;
+    }
+
+    .register-container a {
+        display: block;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+</style>
+
+<div class="container">
+    <div class="register-container">
         <h3>Admin Register Form</h3>
-        <a href="{{ route('ashowAdmin.login') }}">already have an account</a>
-        <form action="{{ route('admin.register') }}" method="post">
-           @csrf
-            <label for="name">Name</label><br>
-            <input type="text" class="form-controller" name="name" placeholder="Name"><br>
-            @error('name') <div class="alert alert-danger">{{ $message }}</div> @enderror
-            <label for="email">email</label><br>
-            <input type="email" class="form-controller" name="email" placeholder="email"><br>
-            @error('email') <div class="alert alert-danger">{{ $message }}</div> @enderror
-            <label for="phone">Phone</label>
-            <input type="text" class="form-controller" name="phone" placeholder="phone"><br>
-            @error('phone') <div class="alert">{{ $message }}</div> @enderror
-            <label for="password">Password</label><br>
-            <input type="password" class="form-controller" name="password" placeholder="password"><br><br>
-            @error('password') <div class="alert alert-danger">{{ $message }}</div>@enderror
-            <input type="submit" class="btn btn-outline-primary" value="register">
+        <a href="{{ route('showAdmin.login') }}">Already have an account?</a>
+
+        <form action="{{ route('admin.register') }}" method="POST">
+            @csrf
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" name="name" placeholder="Name" value="{{ old('name') }}">
+                @error('name') <div class="alert alert-danger">{{ $message }}</div> @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
+                @error('email') <div class="alert alert-danger">{{ $message }}</div> @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="text" class="form-control" name="phone" placeholder="Phone" value="{{ old('phone') }}">
+                @error('phone') <div class="alert alert-danger">{{ $message }}</div> @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Password">
+                @error('password') <div class="alert alert-danger">{{ $message }}</div> @enderror
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-outline-primary">Register</button>
+            </div>
         </form>
     </div>
+</div>
+
 @endsection

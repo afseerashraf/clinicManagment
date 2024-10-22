@@ -1,41 +1,120 @@
 @extends('layout.layout')
-@section('title')Doctor profile @endsection
+
+@section('title', 'Doctor Profile')
+
+@section('content')
+
 <style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
     .doctor {
-        margin-left: 50p;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .doctor img {
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+    }
+
+    h3 {
+        text-align: center;
+        color: #0d6efd;
+        margin-bottom: 20px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        font-size: 16px;
+        color: #333;
+    }
+
+    ul li {
+        margin-bottom: 10px;
+    }
+
+    .search-form {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .search-form input[type="search"] {
+        width: 70%;
+        margin-right: 10px;
+    }
+
+    .table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
+
+    .table th, .table td {
+        border: 1px solid #dee2e6;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .table th {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+    .btn-outline-primary {
+        margin-top: 10px;
     }
 </style>
-@section('content')
-<div class="continer">
+
+<div class="container">
     <div class="doctor">
         @if($doctor->image)
-        <img src="{{ asset('storage/images/'.$doctor->image) }}" alt="doctor image">
+            <img src="{{ asset('storage/images/'.$doctor->image) }}" alt="Doctor Image">
+        @else
+            <img src="{{ asset('storage/images/default-avatar.png') }}" alt="Default Avatar">
         @endif
         <ul>
-            <li>Name: {{ $doctor->name }}</li>
-            <li>Email: {{ $doctor->email }}</li>
-            <li>Specialized: {{ $doctor->specialized }}</li>
+            <li><strong>Name:</strong> {{ $doctor->name }}</li>
+            <li><strong>Email:</strong> {{ $doctor->email }}</li>
+            <li><strong>Specialization:</strong> {{ $doctor->specialized }}</li>
         </ul>
     </div>
-    <h3>patients</h3>
-    <!-- patient detiels -->
-    <form class="d-flex" action="{{ route('getPatient') }}" method="post">
+
+    <h3>Patients</h3>
+
+    <form class="search-form" action="{{ route('getPatient') }}" method="post">
         @csrf
-        <input type="hidden" name='doctor_id' value="encrypt($doctor->id)">
-        <input class="form-control me-2" name="patientName" type="search" placeholder="Search patient" aria-label="Search">
-        @error('patientName') <p>{{ $message }}</p> @enderror
+        <input type="hidden" name='doctor_id' value="{{ encrypt($doctor->id) }}">
+        <input class="form-control me-2" name="patientName" type="search" placeholder="Search Patient" aria-label="Search">
+        @error('patientName') <p class="alert alert-danger">{{ $message }}</p> @enderror
         <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
+
     <table class="table">
         <thead>
             <tr>
-                <th>no</th>
+                <th>No</th>
                 <th>Patient Name</th>
                 <th>Age</th>
                 <th>Place</th>
                 <th>Medical History</th>
                 <th>Treatment</th>
             </tr>
+        </thead>
         <tbody>
             @foreach($patients as $patient)
             <tr>
@@ -50,8 +129,7 @@
             </tr>
             @endforeach
         </tbody>
-        </thead>
     </table>
-
 </div>
+
 @endsection

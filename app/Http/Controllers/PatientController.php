@@ -33,22 +33,7 @@ class PatientController extends Controller
         $patients = Patient::orderBy('appoinment_date', 'desc')->get();
         return view('patient.appoinment', compact('patients'));
     }
-    public function treatment($id){
-        $patientId = Crypt::decrypt($id);
-        $patient = Patient::find($patientId);
-        return view('patient.treatment', compact('patient'));
-    }
-    public function treatments(Request $request){
-        $patient = Patient::find(Crypt::decrypt($request->patient_id));
-        $treatment = new Treatment();
-        $treatment->doctor_id = $patient->doctor->id;
-        $treatment->patient_id = $patient->id;
-        $treatment->treatment_description = $request->treatment_description;
-        $treatment->additional_notes = $request->additional_notes;
-        $treatment->check_in = now();
-        $treatment->save();
-        return redirect()->route('doctor.profile', compact('patient'));
-    }
+    
     public function edit($id){
         $patient = Patient::find(Crypt::decrypt($id));
         $doctors = Doctor::all();
@@ -69,7 +54,7 @@ class PatientController extends Controller
         ];
         $patient->update($input);
         $patient->save();
-        return redirect()->route('patient.view');
+        return redirect()->route('patient.show');
     }
     public function destroy($id){
         $patient = Patient::find(Crypt::decrypt($id));

@@ -41,4 +41,11 @@ class ReceptionistController extends Controller
         $receptionists = Receptionist::all();
         return view('receptionist.list', compact('receptionists'));
     }
+
+    public function profile(){
+        $receptionist = Receptionist::find(2);
+         // select the patients who not get treatment
+        return view('receptionist.profile', compact('receptionist'));
+    }
+
 }

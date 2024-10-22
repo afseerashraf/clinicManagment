@@ -1,56 +1,118 @@
 @extends('layout.layout')
-@section('title')Doctor Register @endsection
-<style>
-        * {
 
-            padding-left: 12px;
-        }
+@section('title', 'Doctor Register')
 
-        .continer {
-            padding-top: 12px;
-            text-decoration: none;
-            margin-top: 53px;
-            margin-left: 300px;
-            font-style: oblique;
-            background-color: #f2e7e5;
-            width: 454px;
-            height: 462px;
-            box-shadow: 1px 1px 1px 1px;
-
-        }
-        .btn{
-            padding-top: 12px;
-        }
-        input {
-            width: 400px;
-        }
-    </style>
 @section('content')
 
-<div class="continer">
-        <h3>Doctor Register Form</h3>
-        <a href="{{ route('showDoctor.login') }}">login</a>
-        <form action="{{ route('doctor.register') }}" method="post" enctype="multipart/form-data">
-           @csrf
-            <label for="name">Name</label><br>
-            <input type="text" class="form-controller" name="name" placeholder="Name"><br>
+<style>
+    body {
+        background-color: #e3f2fd;
+    }
+
+    .container {
+        margin-top: 50px;
+        max-width: 600px;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+        text-align: center;
+        color: #0d6efd;
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+        margin-top: 10px;
+        color: #333;
+    }
+
+    input[type="text"], 
+    input[type="email"], 
+    input[type="password"], 
+    input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #0d6efd;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .btn:hover {
+        background-color: #0b5ed7;
+    }
+
+    a {
+        display: block;
+        text-align: center;
+        margin-top: 15px;
+        color: #0d6efd;
+    }
+
+    .alert {
+        margin-top: 10px;
+        padding: 8px;
+        font-size: 14px;
+    }
+</style>
+
+<div class="container">
+    <h3>Doctor Registration Form</h3>
+    <a href="{{ route('showDoctor.login') }}">Already have an account? Login here</a>
+
+    <form action="{{ route('doctor.register') }}" method="post" enctype="multipart/form-data">
+        @csrf
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" placeholder="Full Name" value="{{ old('name') }}">
             @error('name') <div class="alert alert-danger">{{ $message }}</div> @enderror
-            <label for="email">email</label><br>
-            <input type="email" class="form-controller" name="email" placeholder="email"><br>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
             @error('email') <div class="alert alert-danger">{{ $message }}</div> @enderror
+        </div>
+
+        <div class="form-group">
             <label for="phone">Phone</label>
-            <input type="text" class="form-controller" name="phone" placeholder="phone"><br>
-            @error('phone') <div class="alert">{{ $message }}</div> @enderror
-            <label for="phone">specialized</label>
-            <input type="text" class="form-controller" name="specialized" placeholder="specialized"><br>
-            @error('specialized') <div class="alert">{{ $message }}</div> @enderror
-            <label for="password">passoword</label>
-            <input type="password" class="form-controller" name="password" placeholder="password"><br><br>
-            @error('password') <div class="alert">{{ $message }}</div> @enderror
-            <label for="photot">Photo</label>
-            <input type="file" class="form-controller" name="image"><br>
-            
-            <input type="submit" class="btn btn-outline-primary" value="register">
-        </form>
-    </div>
+            <input type="text" class="form-control" name="phone" placeholder="Phone Number" value="{{ old('phone') }}">
+            @error('phone') <div class="alert alert-danger">{{ $message }}</div> @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="specialized">Specialization</label>
+            <input type="text" class="form-control" name="specialized" placeholder="Your Specialization" value="{{ old('specialized') }}">
+            @error('specialized') <div class="alert alert-danger">{{ $message }}</div> @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Password">
+            @error('password') <div class="alert alert-danger">{{ $message }}</div> @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="image">Profile Picture</label>
+            <input type="file" class="form-control" name="image">
+        </div>
+
+        <button type="submit" class="btn">Register</button>
+    </form>
+</div>
+
 @endsection

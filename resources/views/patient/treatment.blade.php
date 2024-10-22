@@ -17,7 +17,7 @@
     <b>
         <li>Name: {{ $patient->name }} </li>
         <li>Age: {{ $patient->age }} </li>
-        <li>Phone: {{ $patient->medical_history }}</li>
+        <li>Phone: {{ $patient->phone }}</li>
         <li>Doctor: {{ $patient->doctor->name }}</li>
     </b>
     </Ul>

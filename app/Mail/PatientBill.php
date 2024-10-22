@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Attachment;
 
 class PatientBill extends Mailable
 {
@@ -17,9 +18,11 @@ class PatientBill extends Mailable
      * Create a new message instance.
      */
     public $patientBill;
-    public function __construct($patientBill)
+    public $pdfPath;
+    public function __construct($patientBill, $pdfPath)
     {
         $this->patientBill = $patientBill;
+        $this->pdfPath = $pdfPath;
     }
 
     /**
@@ -49,6 +52,8 @@ class PatientBill extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        return [
+            Attachment::fromPath($this->pdfPath),
+        ];
     }
 }

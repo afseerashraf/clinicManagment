@@ -12,6 +12,7 @@
                 <th>Doctor Name</th>
                 <th>Doctor Department</th>
                 <th>Fees</th>
+                <th>Date</th>
                 
             </tr>
             <tbody>
@@ -23,6 +24,7 @@
                 <td>{{ $payBill->treatment->doctor->name }}</td>
                 <td>{{ $payBill->treatment->doctor->specialized }}</td>
                 <td>{{ $payBill->total_amount}}</td>
+                <td>{{ $payBill->created_at }}</td>
                </tr>
             @endforeach
             </tbody>

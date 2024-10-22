@@ -14,9 +14,11 @@ class PatientsBillEmail implements ShouldQueue
      * Create a new job instance.
      */
     public $patientBill;
-    public function __construct($paybill)
+    public $pdfPath;
+    public function __construct($paybill, $pdfPath)
     {
         $this->patientBill = $paybill;
+        $this->pdfPath = $pdfPath;
     }
 
     /**
@@ -24,7 +26,7 @@ class PatientsBillEmail implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to('afseer@gmail.com')->send(new PatientBill($this->patientBill));
+        Mail::to('afseer@gmail.com')->send(new PatientBill($this->patientBill, $this->pdfPath));
 
     }
 }

@@ -1,44 +1,60 @@
 @extends('layout.layout')
-@section('title')Admin Login @endsection
-<style>
-        * {
 
-            padding-left: 12px;
-        }
+@section('title', 'Admin Login')
 
-        .continer {
-            padding-top: 12px;
-            text-decoration: none;
-            margin-top: 150px;
-            margin-left: 300px;
-            font-style: oblique;
-            background-color: #f2e7e5;
-            width: 454px;
-            height: 325px;
-            box-shadow: 1px 1px 1px 1px;
-
-        }
-
-        input {
-            width: 400px;
-        }
-    </style>
 @section('content')
 
-<div class="continer">
+<style>
+    .login-container {
+        padding-top: 50px;
+        background-color: #f2e7e5;
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .login-container h3 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .login-container form {
+        padding: 20px;
+    }
+
+    .login-container a {
+        display: block;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+</style>
+
+<div class="container">
+    <div class="login-container">
         <h3>Admin Login Form</h3>
-       <a href="{{ route('showAdmin.register') }}">no have account</a>
-        <form action="{{ route('admin.login') }}" method="post">
-           @csrf
-           
-            <label for="email">email</label><br>
-            <input type="email" class="form-controller" name="email" placeholder="email"><br>
-            @error('email') <div class="alert alert-danger">{{ $message }}</div> @enderror
-          
-            <label for="password">Password</label><br>
-            <input type="password" class="form-controller" name="password" placeholder="password"><br><br>
-            @error('password') <div class="alert alert-danger">{{ $message }}</div>@enderror
-            <input type="submit" class="btn btn-outline-primary" value="Login">
+        <a href="{{ route('showAdmin.register') }}">No account? Register here</a>
+
+        <form action="{{ route('admin.login') }}" method="POST">
+            @csrf
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
+                @error('email') <div class="alert alert-danger">{{ $message }}</div> @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Password">
+                @error('password') <div class="alert alert-danger">{{ $message }}</div> @enderror
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-outline-primary">Login</button>
+            </div>
         </form>
     </div>
+</div>
+
 @endsection
