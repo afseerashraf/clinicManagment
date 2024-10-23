@@ -1,47 +1,63 @@
 @extends('layout.layout')
 @section('title')Receptionist Register @endsection
+
 <style>
     * {
-        padding-left: 12px;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
     }
 
     .container {
         padding: 20px;
         margin: 150px auto;
-        font-style: oblique;
         background-color: #f2e7e5;
-        width: 300px; /* Reduced width */
-        box-shadow: 1px 1px 1px 1px;
-        border-radius: 8px;
+        width: 350px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
     }
 
     input {
-        width: 100%; /* Full width of container */
-        margin-bottom: 10px;
-        padding: 8px; /* Added padding for better touch targets */
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        margin-bottom: 15px;
     }
 
     .btn {
         width: 100%;
-        padding: 10px; /* Increased padding for button */
+        padding: 12px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
     }
 
     h3 {
         text-align: center;
-        margin-bottom: 15px; /* Added margin for spacing */
+        margin-bottom: 20px;
+        color: #333;
     }
 
     .alert {
         color: red;
-        margin-bottom: 10px;
+        font-size: 14px;
     }
 
     a {
-        display: block; /* Make the link block level */
-        text-align: center; /* Center the link */
-        margin-top: 10px; /* Added margin for spacing */
+        display: block;
+        text-align: center;
+        margin-top: 15px;
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
     }
 </style>
+
 @section('content')
 
 <div class="container">
@@ -69,7 +85,7 @@
         <input type="password" class="form-controller" name="password" placeholder="Password">
         @error('password') <div class="alert">{{ $message }}</div> @enderror
         
-        <input type="submit" class="btn btn-outline-primary" value="Register">
+        <input type="submit" class="btn" value="Register">
     </form>
 </div>
 @endsection

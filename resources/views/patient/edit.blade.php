@@ -3,70 +3,70 @@
 
 <style>
     * {
-        box-sizing: border-box; /* Ensure padding and margin don't affect width */
+        box-sizing: border-box; 
     }
 
     body {
-        font-family: Arial, sans-serif; /* Set a clean font for the body */
-        background-color: #f9f9f9; /* Light background for contrast */
-        color: #333; /* Dark text color for readability */
+        font-family: Arial, sans-serif; 
+        background-color: #f9f9f9; 
+        color: #333; 
     }
 
     .container {
-        padding: 20px; /* Add padding for inner spacing */
-        margin: 60px auto; /* Center the container with top margin */
-        width: 500px; /* Set a fixed width for consistency */
-        background-color: #f2e7e5; /* Soft background color */
-        border-radius: 10px; /* Rounded corners for a modern look */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        padding: 20px; 
+        margin: 60px auto; 
+        width: 500px; 
+        background-color: #f2e7e5; 
+        border-radius: 10px; 
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
     }
 
     h3 {
-        text-align: center; /* Center the title */
-        margin-bottom: 20px; /* Space below the title */
-        color: #007bff; /* Blue color for title */
+        text-align: center; 
+        margin-bottom: 20px; 
+        color: #007bff; 
     }
 
     label {
-        font-weight: bold; /* Bold labels for better emphasis */
-        margin-top: 10px; /* Spacing above labels */
-        display: block; /* Make labels block elements */
+        font-weight: bold;
+        margin-top: 10px;
+        display: block; 
     }
 
     input[type="text"],
     input[type="email"],
     input[type="date"],
     select {
-        width: calc(100% - 24px); /* Full width minus padding */
-        padding: 12px; /* Padding for input fields */
-        margin-top: 5px; /* Spacing above input fields */
-        margin-bottom: 15px; /* Space below input fields */
-        border: 1px solid #ccc; /* Light border for inputs */
-        border-radius: 5px; /* Rounded corners for inputs */
-        font-size: 16px; /* Consistent font size */
+        width: calc(100% - 24px); 
+        padding: 12px; 
+        margin-top: 5px; 
+        margin-bottom: 15px; 
+        border: 1px solid #ccc; 
+        border-radius: 5px;
+        font-size: 16px;
     }
 
     .btn {
-        width: 100%; /* Full width for button */
-        padding: 12px; /* Padding for button */
-        background-color: #007bff; /* Button background color */
-        color: white; /* White text color */
-        border: none; /* No border for button */
-        border-radius: 5px; /* Rounded corners for button */
-        font-size: 18px; /* Increase button font size */
-        cursor: pointer; /* Pointer cursor on hover */
-        transition: background-color 0.3s; /* Smooth background color transition */
+        width: 100%; 
+        padding: 12px; 
+        background-color: #007bff; 
+        color: white; 
+        border: none; 
+        border-radius: 5px; 
+        font-size: 18px; 
+        cursor: pointer; 
+        transition: background-color 0.3s; 
     }
 
     .btn:hover {
-        background-color: #0056b3; /* Darker blue on hover */
+        background-color: #0056b3; 
     }
 
     .alert {
-        color: red; /* Red color for error messages */
-        font-size: 14px; /* Smaller font size for alerts */
-        margin-top: -10px; /* Adjust margin for alignment */
-        margin-bottom: 10px; /* Space below alert */
+        color: red; 
+        font-size: 14px; 
+        margin-top: -10px; 
+        margin-bottom: 10px; 
     }
 </style>
 
