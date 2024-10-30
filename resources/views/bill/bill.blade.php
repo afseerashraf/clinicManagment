@@ -5,5 +5,5 @@ Doctor fees: {{ $payBill->doctor_fees }} <br>
 Additional Charges: {{ $payBill->additional_charges }} <br>
 @endif
 <b>Totall:</b>{{ $payBill->total_amount }} <br>
-
+<p><strong>Time: </strong>{{ $payBill->check_out }}</p>
 <a href="{{ route('bill.download', encrypt($payBill->id)) }}" class="btn">Download</a>

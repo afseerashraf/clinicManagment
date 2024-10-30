@@ -8,6 +8,7 @@ use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Doctor;
+
 class AdminController extends Controller
 {
     public function index(){
@@ -26,10 +27,15 @@ class AdminController extends Controller
         return view('admin.login');
     }
     public function login(AdminRequest $request){
-        $credentials = ['email' => request('email'), 'password' => request('password')];
+        $credentials = ['email' => $request->email, 'password' => $request->password];
         if(auth()->guard('admin')->attempt($credentials)){
             $admin = auth()->guard('admin')->user();
-            return view('admin.dashboard', compact('admin'));
+            if(!$admin->hasRole('admin')){
+                $admin->assignRole('admin');
+            }if(!$admin->hasPermissionTo('manage users')){
+                $admin->givePermissionTo('manage users');
+            }
+           return view('admin.dashboard', compact('admin'));
         }else{
            return redirect()->route('showAdmin.login');
         }
@@ -37,7 +43,14 @@ class AdminController extends Controller
     }
     public function dashoard(){
         $admin = Admin::find(1);
+        if(!$admin->hasRole('admin')){
+            $admin->assignRole('admin');
+        }if(!$admin->hasPermissionTo('manage users')){
+            $admin->givePermissionTo('manage users');
+        }
         return view('admin.dashboard', compact('admin'));
+        
+        
     }
   
 

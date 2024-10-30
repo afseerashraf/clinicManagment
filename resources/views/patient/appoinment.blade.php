@@ -52,6 +52,7 @@
                 <th>Medical History</th>
                 <th>Doctor</th>
                 <th>Appointment Date</th>
+                <th>Check IN</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -71,6 +72,7 @@
                         @endif
                     </td>
                     <td>{{ \Carbon\Carbon::parse($patient->appoinment_date)->format('Y-F-d') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($patient->check_in)->format('H:i:s') }}</td>
                     <td>
                         @if(!$patient->doctor)
                             <a href="{{ route('patient.delete', encrypt($patient->id)) }}" class="btn btn-outline-danger">🗑️ Delete</a>

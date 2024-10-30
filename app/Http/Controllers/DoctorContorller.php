@@ -38,6 +38,11 @@ class DoctorContorller extends Controller
         $credentials = $request->only('email', 'password');
         if(auth()->guard('doctor')->attempt($credentials)){
             $doctor = auth()->guard('doctor')->user();
+            if(!$doctor->hasRole('doctor')){
+                $doctor->assignRole('doctor');
+            }if(!$doctor->hasPermissionTo('patient_treatment')){
+                $doctor->givePermissionTo('patient_treatment');
+            }
             return view('doctor.profile', compact('doctor'));
         }else{
             return redirect()->route('showDoctor.login');
@@ -48,6 +53,11 @@ class DoctorContorller extends Controller
     public function profile(){
         $doctor = Doctor::find(7);
         $patients = $doctor->patients()->whereDoesntHave('treatment')->get(); // select the patients who not get treatment
+        if(!$doctor->hasRole('doctor')){
+            $doctor->assignRole('doctor');
+        }if(!$doctor->hasPermissionTo('patient_treatment')){
+            $doctor->givePermissionTo('patient_treatment');
+        }
         return view('doctor.profile', compact('doctor', 'patients'));
     }
     public function showDoctors(){
@@ -66,7 +76,7 @@ class DoctorContorller extends Controller
         $treatment->patient_id = $patient->id;
         $treatment->treatment_description = $request->treatment_description;
         $treatment->additional_notes = $request->additional_notes;
-        $treatment->check_in = now();
+  
         $treatment->save();
         return redirect()->route('doctor.profile', compact('patient'));
     }
@@ -76,11 +86,16 @@ class DoctorContorller extends Controller
         $doctor->delete();
         return redirect()->route('doctor.show');
     }
-    public function getPatient(DoctorRequest $request){ //search bar function
+    public function getPatient(Request $request){ //search patient
         $doctorId = Crypt::decrypt($request->doctor_id);
         $doctor = Doctor::find($doctorId);
-        $patient = $doctor->patients()->where('name', '=', $request->patientName)->get();
-        return view('doctor.patient', compact('patient'));
+        $patient = $doctor->patients()->where('name', 'like', '%' . $request->patientName . '%')->get();
+        if ($patient->isNotEmpty()) {
+            return view('doctor.patient', compact('patient'));
+        } else {
+            return view('doctor.patient', ['message' => 'No patient found.']);
+        }
+        
     }
     
 

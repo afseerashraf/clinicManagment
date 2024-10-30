@@ -119,12 +119,16 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
+    
+    @if(auth()->guard('admin')->check() && auth()->guard('admin')->user()->hasPermissionTo('manage users'))
         <a href="{{ route('admin.dashboard') }}">Dashboard</a>
         <a href="{{ route('doctor.show') }}">Doctors</a>
         <a href="{{ route('patient.show') }}">Patients</a>
         <a href="{{ route('unpaid.patients') }}">Unpaid Patients</a>
         <a href="{{ route('receptionist.show') }}">Receptionists</a>
         <a href="{{ route('show.paidPatients') }}">Paid Patients</a>
+    @endif
+
     </div>
 
     <!-- Main Content -->

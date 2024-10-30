@@ -26,8 +26,9 @@ class PatientController extends Controller
         $patient->house = $request->house;
         $patient->medical_history = $request->medicalHistory;
         $patient->doctor_id = $request->doctor_id;
+        $patient->check_in = now();
         $patient->save();
-        return redirect()->route('patient.view');
+        return redirect()->route('patient.show');
     }
     public function show(){
         $patients = Patient::orderBy('appoinment_date', 'desc')->get();

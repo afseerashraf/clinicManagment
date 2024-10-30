@@ -27,6 +27,7 @@ class PatientbillsController extends Controller
         } else {
             $payBill->total_amount =  $payBill->doctor_fees;
         }
+        $payBill->check_out = now();
         $payBill->save();
         $pdf = PDF::loadView('bill.pdfBill', compact('payBill')); // Use a blade view to format the bill
         $pdfPath = storage_path('app/public/bills/' . 'bill_' . $payBill->id. '.pdf');

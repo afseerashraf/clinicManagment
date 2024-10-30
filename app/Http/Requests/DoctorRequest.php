@@ -27,10 +27,10 @@ class DoctorRequest extends FormRequest
             'name' =>['required', 'regex:/^[a-zA-Z\s]+$/'],
             'email' => ['required', 'email'],
             'phone' =>['required', 'numeric',  'digits_between:10,12'],
-            'specialized' => ['required', 'alpha'],
+            'specialized' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
             'password' => ['required',password::min(8)->letters()->numbers()],
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'patientName' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
+           
         ];
     }
 }

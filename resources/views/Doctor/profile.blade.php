@@ -96,13 +96,14 @@
 
     <h3>Patients</h3>
 
-    <form class="search-form" action="{{ route('getPatient') }}" method="post">
+    <form class="search-form" action="{{ route('getPatient') }}" method="get">
         @csrf
         <input type="hidden" name='doctor_id' value="{{ encrypt($doctor->id) }}">
         <input class="form-control me-2" name="patientName" type="search" placeholder="Search Patient" aria-label="Search">
         @error('patientName') <p class="alert alert-danger">{{ $message }}</p> @enderror
         <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
+    @if(auth()->guard('doctor')->check() && auth()->guard('doctor')->user()->hasPermissionTo('patient_treatment'))
 
     <table class="table">
         <thead>
@@ -129,6 +130,7 @@
             </tr>
             @endforeach
         </tbody>
+        @endif
     </table>
 </div>
 

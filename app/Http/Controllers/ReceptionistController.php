@@ -31,6 +31,11 @@ class ReceptionistController extends Controller
         $credentials = $request->only('email', 'password');
         if(auth()->guard('recetionist')->attempt($credentials)){
            $receptionist = auth()->guard('recetionist')->user();
+           if($receptionist->hasRole('receptionist')){
+            $receptionist->assignRole('receptionist');
+           }if($receptionist->hasPermissionTo('manage_patients')){
+            $receptionist->givePermissionTo('manage_patients');
+           }
            return view('receptionist.profile', compact('receptionist'));
         }else{
             return "$credentials wrong";
@@ -44,7 +49,12 @@ class ReceptionistController extends Controller
 
     public function profile(){
         $receptionist = Receptionist::find(2);
-         // select the patients who not get treatment
+        if(!$receptionist->hasRole('receptionist')){
+            $receptionist->assignRole('receptionist');
+
+        }if(!$receptionist->hasPermissionTo('manage_patients')){
+            $receptionist->givePermissionTo('manage_patients');
+        }
         return view('receptionist.profile', compact('receptionist'));
     }
 

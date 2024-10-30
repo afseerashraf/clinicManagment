@@ -4,10 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Traits\HasPermissions;
 
-class Doctor extends Model
+class Doctor  extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory,  HasRoles, HasPermissions;
     protected $fillable = ['name', 'email', 'phone', 'specialized', 'password' ,'image'];
 
     public function patients(){

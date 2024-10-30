@@ -24,6 +24,14 @@
             <td style="padding: 10px 0; font-size: 16px; font-weight: bold;"><strong>Total Amount:</strong></td>
             <td style="padding: 10px 0; font-size: 16px; font-weight: bold;">${{ number_format($payBill->total_amount, 2) }}</td>
         </tr>
+        <tr>
+            <td style="padding: 10px 0; font-size: 16px; font-weight: bold;"><strong>check_In:</strong></td>
+            <td style="padding: 10px 0; font-size: 16px; font-weight: bold;">{{ $payBill->treatment->patient->check_in}}</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px 0; font-size: 16px; font-weight: bold;"><strong>check_out:</strong></td>
+            <td style="padding: 10px 0; font-size: 16px; font-weight: bold;">{{ $payBill->check_out}}</td>
+        </tr>
     </table>
 
     <!-- <div style="text-align: center; margin-top: 30px;">
