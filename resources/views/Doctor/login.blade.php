@@ -77,14 +77,14 @@
         @csrf
         
         <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
+            <label for="name">Email</label>
+            <input type="email" class="form-control" name="email" placeholder="email" value="{{ old('email') }}">
             @error('email') <div class="alert alert-danger">{{ $message }}</div> @enderror
         </div>
 
         <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" name="password" placeholder="Password">
+            <label for="email">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="password" value="{{ old('password') }}">
             @error('password') <div class="alert alert-danger">{{ $message }}</div> @enderror
         </div>
 

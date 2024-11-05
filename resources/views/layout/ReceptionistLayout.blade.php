@@ -105,6 +105,7 @@
             <a class="navbar-brand" href="#">
                 <h4>Clinic Management</h4>
             </a>
+           
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -119,12 +120,15 @@
        
     <!-- Sidebar -->
     <div class="sidebar">
-        @if(auth()->guard('admin')->check() && auth()->guard('admin')->user()->hasRole('admin'))
-        <a href="{{ route('admin.dashboard') }}">Dashboard</a>
-        <a href="{{ route('doctor.show') }}">Doctors</a>
-        <a href="{{ route('receptionist.show') }}">Receptionists</a>
-        @endif
        
+        @if(auth()->guard('receptionist')->check() && auth()->guard('receptionist')->user()->hasRole('receptionist'))
+        <a href="{{ route('receptionist.profile') }}">Profile</a>
+        <a href="{{ route('patient.index') }}">Register Patient</a>
+        <a href="{{ route('patient.show') }}">Patients</a>
+        <a href="{{ route('unpaid.patients') }}">Unpaid Patients</a>
+        <a href="{{ route('show.paidPatients') }}">Paid Patients</a>
+        
+        @endif
     </div>
 
     <!-- Main Content -->

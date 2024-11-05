@@ -21,6 +21,7 @@
         margin-bottom: 30px;
         background-color: #f9f9f9;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        
     }
 
     thead {
@@ -53,11 +54,20 @@
         font-size: 14px;
         color: #333;
     }
+    .btn-outline-primary {
+        margin-bottom: 20px;
+    }
+
+    .btn-outline-danger {
+        margin: 5px;
+    }
+
 </style>
 
 @section('content')
 <div class="dashboard-container">
     <h3>Receptionist List</h3>
+    <a href="{{route('receptionist.index')}}" class="btn btn-outline-primary">Register Receptionist</a>
     <table class="table">
         <thead>
             <tr>
@@ -66,6 +76,7 @@
                 <th>Email</th>
                 <th>Place</th>
                 <th>Phone</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -76,6 +87,9 @@
                 <td>{{ $receptionist->email }}</td>
                 <td>{{ $receptionist->place }}</td>
                 <td>{{ $receptionist->phone }}</td>
+                <td>
+                    <a href="{{ route('delete.receptionist', encrypt($receptionist->id)) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this: {{$receptionist->name}}?')">Delete</a>
+                </td>
             </tr>
             @endforeach
         </tbody>

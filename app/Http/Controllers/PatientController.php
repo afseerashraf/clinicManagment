@@ -8,6 +8,7 @@ use App\Models\Patient;
 use App\Models\Doctor;
 use App\Models\Treatment;
 use Illuminate\Support\Facades\Crypt;
+use App\Events\CreatePatient;
 
 class PatientController extends Controller
 {
@@ -28,6 +29,7 @@ class PatientController extends Controller
         $patient->doctor_id = $request->doctor_id;
         $patient->check_in = now();
         $patient->save();
+        CreatePatient::dispatch($patient);
         return redirect()->route('patient.show');
     }
     public function show(){
@@ -60,7 +62,8 @@ class PatientController extends Controller
     public function destroy($id){
         $patient = Patient::find(Crypt::decrypt($id));
         $patient->delete();
-        return redirect()->route('patient.view')->with('messege', $patient->name.'succefully deleted');
+       
+        return redirect()->route('patient.show')->with('messege', $patient->name.'succefully deleted');
         
     }
    

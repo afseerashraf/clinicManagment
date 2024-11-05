@@ -1,4 +1,4 @@
-@extends('layout.adminLayout')
+@extends('layout.receptionistLayout')
 @section('title')Patients Bill @endsection
 
 @section('content')

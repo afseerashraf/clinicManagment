@@ -1,6 +1,6 @@
 @extends('layout.adminLayout')
 
-@section('title', 'Admin Dashboard')
+@section('title', 'Admin Dashboard') 
 
 @section('content')
 
@@ -86,11 +86,12 @@
                         @if($doctor->image)
                             <img src="{{ asset('storage/images/'.$doctor->image) }}" alt="Doctor Image">
                         @else
-                            <img src="{{ asset('storage/images/default-avatar.png') }}" alt="Default Avatar">
+                            <p>No Image</p>
                         @endif
                     </td>
                     <td>
                         <a href="{{ route('delete.doctor', encrypt($doctor->id)) }}" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this doctor?')">Delete</a>
+                        <a href="{{ route('edit.doctor', encrypt($doctor->id)) }}" class="btn btn-outline-success">Update</a>
                     </td>
                 </tr>
             @endforeach

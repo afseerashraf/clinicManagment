@@ -1,4 +1,4 @@
-@extends('layout.layout')
+@extends('layout.receptionistLayout')
 @section('title')Receptionist Profile @endsection
 
 <style>
@@ -44,11 +44,13 @@
 <div class="container">
     <h3>Receptionist Details</h3>
     <ul>
-        <li><strong>Name:</strong> {{ $receptionist->name }}</li>
-        <li><strong>Email:</strong> {{ $receptionist->email }}</li>
-        <li><strong>Phone:</strong> {{ $receptionist->phone }}</li>
+        <li><strong>Name:</strong> {{ session('receptionist')->name }}</li>
+        <li><strong>Email:</strong> {{session('receptionist')->email }}</li>
+        <li><strong>Phone:</strong> {{ session('receptionist')->phone }}</li>
+        <a href="{{ route('receptionist.logout', encrypt(session('receptionist')->id)) }}" class="btn danger">Logout</a>
+
     </ul>
-    <a href="{{ route('patient.index') }}" class="btn">Register New Patients</a>
+
 </div>
 
 @endsection

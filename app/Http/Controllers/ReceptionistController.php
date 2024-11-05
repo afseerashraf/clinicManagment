@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RecepitionistLogin;
 use Illuminate\Http\Request;
 use App\Http\Requests\ReceptionistRequest;
 use App\Models\Receptionist;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class ReceptionistController extends Controller
 {
@@ -27,18 +29,19 @@ class ReceptionistController extends Controller
     public function receptionistLogin(){
         return view('receptionist.login');
     }
-    public function login(ReceptionistRequest $request){
+    public function login(RecepitionistLogin $request){
         $credentials = $request->only('email', 'password');
-        if(auth()->guard('recetionist')->attempt($credentials)){
-           $receptionist = auth()->guard('recetionist')->user();
-           if($receptionist->hasRole('receptionist')){
+        if(auth()->guard('receptionist')->attempt($credentials)){
+           $receptionist = auth()->guard('receptionist')->user();
+           if(!$receptionist->hasRole('receptionist')){
             $receptionist->assignRole('receptionist');
-           }if($receptionist->hasPermissionTo('manage_patients')){
+           }if(!$receptionist->hasPermissionTo('manage_patients')){
             $receptionist->givePermissionTo('manage_patients');
            }
+           session(['receptionist' => $receptionist]);
            return view('receptionist.profile', compact('receptionist'));
         }else{
-            return "$credentials wrong";
+            return "Dos not find the user! please register";
         }
     }
 
@@ -48,14 +51,17 @@ class ReceptionistController extends Controller
     }
 
     public function profile(){
-        $receptionist = Receptionist::find(2);
-        if(!$receptionist->hasRole('receptionist')){
-            $receptionist->assignRole('receptionist');
-
-        }if(!$receptionist->hasPermissionTo('manage_patients')){
-            $receptionist->givePermissionTo('manage_patients');
-        }
-        return view('receptionist.profile', compact('receptionist'));
+        return view('receptionist.profile');
+    }
+    public function logout($id){
+        $receptionist = Receptionist::find(Crypt::decrypt($id));
+        auth()->guard('receptionist')->logout();
+        return redirect()->route('showReceptionist.login');
+    }
+    public function delete($id){
+        $receptionist = Receptionist::find(Crypt::decrypt($id));
+        $receptionist->delete();
+        return redirect()->route('receptionist.show');
     }
 
 }

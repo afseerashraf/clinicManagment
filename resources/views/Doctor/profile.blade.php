@@ -78,19 +78,21 @@
     .btn-outline-primary {
         margin-top: 10px;
     }
+    img{
+        border-radius: 50%;
+    }
 </style>
 
 <div class="container">
     <div class="doctor">
         @if($doctor->image)
             <img src="{{ asset('storage/images/'.$doctor->image) }}" alt="Doctor Image">
-        @else
-            <img src="{{ asset('storage/images/default-avatar.png') }}" alt="Default Avatar">
         @endif
         <ul>
             <li><strong>Name:</strong> {{ $doctor->name }}</li>
             <li><strong>Email:</strong> {{ $doctor->email }}</li>
             <li><strong>Specialization:</strong> {{ $doctor->specialized }}</li>
+            <a href="{{ route('doctor.logout', encrypt($doctor->id)) }}" class="btn btn-outline-danger">Logout</a>
         </ul>
     </div>
 
