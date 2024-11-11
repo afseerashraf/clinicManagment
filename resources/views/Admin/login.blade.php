@@ -49,6 +49,7 @@
                 <input type="password" class="form-control" name="password" placeholder="Password">
                 @error('password') <div class="alert alert-danger">{{ $message }}</div> @enderror
             </div>
+            <a href="{{ route('viewsendEmail') }}" class="btn btn-link mt-2">Forgot Password?</a>
 
             <div class="d-grid">
                 <button type="submit" class="btn btn-outline-primary">Login</button>

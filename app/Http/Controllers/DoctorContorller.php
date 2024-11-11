@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Crypt;
 use App\Models\Patient;
 use App\Models\Treatment;
 use App\Http\Requests\DoctorUpdate;
+use Illuminate\View\View;
+
 class DoctorContorller extends Controller
 {
     public function index(){
@@ -75,7 +77,7 @@ class DoctorContorller extends Controller
     public function delete($id){
         $doctor = Doctor::find(Crypt::decrypt($id));
         $doctor->delete();
-        return redirect()->route('doctor.show');
+        return redirect()->route('doctor.show')->with('message', 'Successfully deleted '.$doctor->name);
     }
     public function viewupdate($id){
         $doctor = Doctor::find(Crypt::decrypt($id));

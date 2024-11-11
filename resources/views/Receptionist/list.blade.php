@@ -83,7 +83,7 @@
             @foreach($receptionists as $receptionist)  
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $receptionist->name }}</td>
+                <td>{{ ucwords($receptionist->name) }}</td>
                 <td>{{ $receptionist->email }}</td>
                 <td>{{ $receptionist->place }}</td>
                 <td>{{ $receptionist->phone }}</td>

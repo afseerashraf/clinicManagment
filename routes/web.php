@@ -28,6 +28,9 @@ Route::prefix('admin')->controller(AdminController::class)->group(function () {
         Route::get('dashboard', 'dashoard')->name('admin.dashboard'); // admin can handle the all users.
         Route::get('logout/{id}', 'logout')->name('admin.logout');
     });
+    Route::get('forget', 'viewsendEmail')->name('viewsendEmail');
+    Route::post('passwordreset', 'sendPasswordResetMail')->name('sendPasswordResetMail');
+    Route::get('viewreset/{token}', 'viewResetForm')->name('viewResetForm');
 });
 Route::prefix('doctor')->controller(DoctorContorller::class)->group(function () {
     Route::get('doctor', 'index')->name('doctor.index');

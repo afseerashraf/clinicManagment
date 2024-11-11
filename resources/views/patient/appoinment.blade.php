@@ -60,13 +60,13 @@
             @foreach($patients as $patient)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $patient->name }}</td>
+                    <td>{{ ucwords($patient->name) }}</td>
                     <td>{{ $patient->age }}</td>
-                    <td>{{ $patient->place }}</td>
+                    <td>{{ ucwords($patient->place) }}</td>
                     <td>{{ $patient->medical_history }}</td>
                     <td>
                         @if ($patient->doctor)
-                            {{ $patient->doctor->name }} ({{ $patient->doctor->specialized }})
+                            {{ ucwords($patient->doctor->name) }} ({{ strtoupper($patient->doctor->specialized) }})
                         @else
                             <span class="text-danger">Doctor resigned</span>
                         @endif

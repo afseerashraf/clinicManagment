@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AdminLogin;
 use Illuminate\Http\Request;
 use App\Http\Requests\AdminRequest;
+use App\Mail\AdminPasswordResetMail;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Doctor;
 use App\Models\Session;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -53,5 +57,39 @@ class AdminController extends Controller
         $admin = Admin::find(Crypt::decrypt($id));
         auth()->guard('admin')->logout();
         return redirect()->route('showAdmin.login');
+    }
+    public function viewsendEmail(){
+        return view('admin.forgotEmail');
+    }
+    public function sendPasswordResetMail(Request $request){
+        $request->validate([
+            'email' => 'required', 'email', 'exists:admins',
+        ]);
+        $admin = Admin::where('email', $request->email)->first();
+       
+        if($admin){ 
+            
+            $token = str::random(64);
+            $admin->update([
+                'password_reset_token' => $token,
+            ]);
+           $admin->save();
+           
+           Mail::to($admin->email)->send(new AdminPasswordResetMail($admin, $token));
+
+        }else{
+            return redirect()->route('showAdmin.login');
+        }
+    }
+    public function viewResetForm($token){
+       
+        $admin = Admin::where('password_reset_token', $token)->first();
+        
+        if($admin){
+            
+            return view('admin.resetPasswordForm');
+        }else{
+            return redirect()->route('showAdmin.login');
+        }
     }
 }

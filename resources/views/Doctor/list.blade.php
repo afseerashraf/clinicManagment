@@ -61,7 +61,9 @@
 <div class="container">
     <h3>Our Doctors</h3>
     <a href="{{ route('doctor.index') }}" class="btn btn-outline-primary">Register Doctor</a>
-
+    @if(session('message'))
+        <div class="alert alert-success">{{ session('message') }}</div>
+    @endif
     <table class="table">
         <thead>
             <tr>
@@ -78,10 +80,10 @@
             @foreach($doctors as $doctor)  
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $doctor->name }}</td>
+                    <td>{{ ucwords($doctor->name) }}</td>
                     <td>{{ $doctor->email }}</td>
                     <td>{{ $doctor->phone }}</td>
-                    <td>{{ $doctor->specialized }}</td>
+                    <td>{{ strtoupper($doctor->specialized) }}</td>
                     <td>
                         @if($doctor->image)
                             <img src="{{ asset('storage/images/'.$doctor->image) }}" alt="Doctor Image">
@@ -92,7 +94,7 @@
                     <td>
                         <a href="{{ route('delete.doctor', encrypt($doctor->id)) }}" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this doctor?')">Delete</a>
                         <a href="{{ route('edit.doctor', encrypt($doctor->id)) }}" class="btn btn-outline-success">Update</a>
-                    </td>
+                   </td>
                 </tr>
             @endforeach
         </tbody>
