@@ -22,4 +22,4 @@ HTML/CSS/Bootstrap: UI/UX
 🚀 Key Features
 Role-based access control for secure data handling.
 Easy management of patients, doctors, and appointments.
-Real-time assignment and r
+Real-time assignment and record updates
