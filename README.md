@@ -1,6 +1,7 @@
-:
 
-🏥 Clinic Management System
+
+🏥 
+Clinic Management System
 A Laravel Project for Role-Based Clinic Management 🖥️
 👨‍🏫 Project by: Afseer Ashraf
 📚 Laravel Training Project
