@@ -31,6 +31,7 @@ Route::prefix('admin')->controller(AdminController::class)->group(function () {
     Route::get('forget', 'viewsendEmail')->name('viewsendEmail');
     Route::post('passwordreset', 'sendPasswordResetMail')->name('sendPasswordResetMail');
     Route::get('viewreset/{token}', 'viewResetForm')->name('viewResetForm');
+    Route::post('reseted', 'resetedPassword')->name('resetedPassword');
 });
 Route::prefix('doctor')->controller(DoctorContorller::class)->group(function () {
     Route::get('doctor', 'index')->name('doctor.index');

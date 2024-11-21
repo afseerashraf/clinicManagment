@@ -79,6 +79,7 @@
         <tbody>
             @foreach($doctors as $doctor)  
                 <tr>
+                    
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ ucwords($doctor->name) }}</td>
                     <td>{{ $doctor->email }}</td>
@@ -93,12 +94,15 @@
                     </td>
                     <td>
                         <a href="{{ route('delete.doctor', encrypt($doctor->id)) }}" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this doctor?')">Delete</a>
-                        <a href="{{ route('edit.doctor', encrypt($doctor->id)) }}" class="btn btn-outline-success">Update</a>
+                        <a href="{{ route('edit.doctor', encrypt($doctor->id)) }}" class="btn btn-outline-danger">Update</a>
+
                    </td>
+                   
                 </tr>
             @endforeach
         </tbody>
     </table>
+ 
 </div>
 
 @endsection

@@ -34,6 +34,15 @@
 <div class="container">
     <div class="login-container">
         <h3>Admin Login Form</h3>
+        @if (Session::has('message'))
+
+        <div class="alert alert-success" role="alert">
+
+            {{ Session::get('message') }}
+
+        </div>
+
+        @endif
         <a href="{{ route('showAdmin.register') }}">No account? Register here</a>
 
         <form action="{{ route('admin.login') }}" method="POST">

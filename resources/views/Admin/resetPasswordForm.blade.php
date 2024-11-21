@@ -62,9 +62,9 @@
 <body>
     <div class="container">
         <h3>Reset Password</h3>
-        <form action="{" method="post">
+        <form action="{{ route('resetedPassword') }}" method="post">
             @csrf
-            <input type="hidden" name="agent_id" value="{{encrypt($agent->id)}}">
+            <input type="hidden" name="admin_id" value="{{encrypt($admin->id)}}">
             <label for="password">Password</label>
             <input type="password" id="password" class="form-control" name="password" placeholder="Enter password" required>
             @error('password') <div class="alert alert-danger">{{ $message }}</div> @enderror
