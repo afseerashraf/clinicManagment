@@ -10,7 +10,7 @@
 <body>
     <h2>Hellow {{ $admin->name }}</h2>
     <p>click to get the reset password link!</p>
-    <a href="{{ route('viewResetForm', $token) }}" class="btn btn-primary">click</a>
+    <a href="{{ route('viewResetForm', $token) }}">click</a>
 
 
 

@@ -66,7 +66,7 @@ class AdminController extends Controller
     }
 
 
-    public function logout(int $id)
+    public function logout($id)
     {
         $admin = Admin::find(Crypt::decrypt($id));
         auth()->guard('admin')->logout();
@@ -93,10 +93,8 @@ class AdminController extends Controller
 
             $token = str::random(64);
 
-            $admin->update([
-                'password_reset_token' => $token,
-            ]);
-
+           $admin->password_reset_token = $token;
+           $admin->save();
 
             Mail::to($admin->email)->send(new AdminPasswordResetMail($admin, $token));
             return redirect()->back()->with('message', 'Password reset link sent to your email!');
@@ -111,13 +109,14 @@ class AdminController extends Controller
         $admin = Admin::where('password_reset_token', $token)->first();
 
         if ($admin) {
-            $admin->update([
-                'password_reset_token' =>  'null',
-            ]);
+           
+            $admin->password_reset_token = 'null';
+            $admin->save();
             return view('admin.resetPasswordForm', compact('admin'));
         } else {
             return redirect()->route('showAdmin.login');
         }
+
     }
 
     public function resetedPassword(Request $request)
@@ -137,8 +136,9 @@ class AdminController extends Controller
             $admin->update([
                 'password' => $request->password,
             ]);
+            toastr()->success('successfully reseted password!');
 
-            return redirect()->route('showAdmin.login')->with('message', 'successfully reset password');
+            return redirect()->route('showAdmin.login');
         } else {
 
             return redirect()->route('viewsendEmail');

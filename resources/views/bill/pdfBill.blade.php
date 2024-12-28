@@ -34,7 +34,4 @@
         </tr>
     </table>
 
-    <!-- <div style="text-align: center; margin-top: 30px;">
-        <a href="{{ route('bill.download', encrypt($payBill->id)) }}" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Download PDF</a>
-    </div> -->
 </div>

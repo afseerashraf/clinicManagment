@@ -1,35 +1,36 @@
-@extends('layout.layout')
-@section('title')Patient Register @endsection
+@extends('layout.receptionistLayout')
+@section('title') Patient Register @endsection
 <style>
     body {
         margin: 0;
         padding: 0;
         font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
     }
 
-    .container {
-        background-color: #f2f2f2;
-        width: 100%;
+    .form-container {
+        background-color: #fff;
+        width: 50%;
         max-width: 600px;
         margin: 50px auto;
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        background-color: white;
     }
 
-    .container h3 {
+    .form-container h3 {
         text-align: center;
         margin-bottom: 20px;
     }
 
-    .container form {
+    .form-container form {
         display: flex;
         flex-direction: column;
     }
 
     label {
         margin-bottom: 5px;
+        font-weight: bold;
     }
 
     input, select {
@@ -47,77 +48,67 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        text-align: center;
     }
 
     .btn:hover {
         background-color: #0056b3;
     }
 
-    .banner {
-        width: 100%;
-        height: 200px;
-        background-image: url(''); /* Example image URL */
-        background-size: cover;
-        background-position: center;
-        border-radius: 8px 8px 0 0;
-    }
-
-    .alert {
+    .error {
         color: red;
         margin-bottom: 10px;
     }
 </style>
 
 @section('content')
-
-<div class="container">
-    <div class="banner"></div>
+<div class="form-container">
     <h3>Patient Registration</h3>
     <form action="{{ route('patient.register') }}" method="post">
         @csrf
 
         <label for="date">Appointment Date</label>
-        <input type="date" name="date">
-        @error('date') <div class="alert">{{ $message }}</div> @enderror
+        <input type="date" name="date" id="date" required>
+        @error('date') <div class="error">{{ $message }}</div> @enderror
 
         <label for="name">Name</label>
-        <input type="text" name="name" placeholder="Enter full name">
-        @error('name') <div class="alert">{{ $message }}</div> @enderror
+        <input type="text" name="name" id="name" placeholder="Enter full name" required>
+        @error('name') <div class="error">{{ $message }}</div> @enderror
 
         <label for="age">Age</label>
-        <input type="text" name="age" placeholder="Enter age">
-        @error('age') <div class="alert">{{ $message }}</div> @enderror
+        <input type="number" name="age" id="age" placeholder="Enter age" required>
+        @error('age') <div class="error">{{ $message }}</div> @enderror
 
         <label for="phone">Phone</label>
-        <input type="text" name="phone" placeholder="Enter phone number">
-        @error('phone') <div class="alert">{{ $message }}</div> @enderror
+        <input type="tel" name="phone" id="phone" placeholder="Enter phone number" required>
+        @error('phone') <div class="error">{{ $message }}</div> @enderror
 
         <label for="email">Email</label>
-        <input type="email" name="email" placeholder="Enter email address">
-        @error('email') <div class="alert">{{ $message }}</div> @enderror
+        <input type="email" name="email" id="email" placeholder="Enter email address" required>
+        @error('email') <div class="error">{{ $message }}</div> @enderror
 
         <label for="place">Place</label>
-        <input type="text" name="place" placeholder="Enter place">
-        @error('place') <div class="alert">{{ $message }}</div> @enderror
+        <input type="text" name="place" id="place" placeholder="Enter place" required>
+        @error('place') <div class="error">{{ $message }}</div> @enderror
 
         <label for="house">House</label>
-        <input type="text" name="house" placeholder="Enter house name">
-        @error('house') <div class="alert">{{ $message }}</div> @enderror
+        <input type="text" name="house" id="house" placeholder="Enter house name" required>
+        @error('house') <div class="error">{{ $message }}</div> @enderror
 
         <label for="medicalHistory">Medical History</label>
-        <input type="text" name="medicalHistory" placeholder="Enter medical history">
-        @error('medicalHistory') <div class="alert">{{ $message }}</div> @enderror
+        <input type="text" name="medicalHistory" id="medicalHistory" placeholder="Enter medical history" required>
+        @error('medicalHistory') <div class="error">{{ $message }}</div> @enderror
 
         <label for="doctor">Select Doctor</label>
-        <select name="doctor_id">
+        <select name="doctor_id" id="doctor" required>
             <option value="">--Select Doctor--</option>
             @foreach($doctors as $doctor)
             <option value="{{ $doctor->id }}">{{ $doctor->name }} ({{ $doctor->specialized }})</option>
             @endforeach
         </select>
-        @error('doctor_id') <div class="alert">{{ $message }}</div> @enderror
+        @error('doctor_id') <div class="error">{{ $message }}</div> @enderror
 
-        <input type="submit" class="btn" value="Register">
+        <button type="submit" class="btn">Register</button>
     </form>
 </div>
 @endsection

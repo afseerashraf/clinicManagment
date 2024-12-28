@@ -41,16 +41,9 @@ class PatientbillsController extends Controller
         $payBill = Bill::latest()->get();
         return view('bill.patientsBill', compact('payBill'));
     }
-    public function paydbill(){
-        $payBill = Bill::find(1);
+    public function paydbill(Request $request){
+        $payBill = Bill::find(Crypt::decrypt($request->treatment_id));
         return view('bill.bill', compact('payBill'));
     }
-    public function downloadPdf($id){
-        $billId = Bill::find(Crypt::decrypt($id));
-        $pdf = PDF::loadView('bill.pdfBill', compact('billId')); // Use a blade view to format the bill
-        $pdfPath = storage_path('app/public/bills/' . 'bill_' . $billId->id. '.pdf');
-        $pdf->save($pdfPath);
-        return response()->download($pdfPath);
-
-    }
+    
 }

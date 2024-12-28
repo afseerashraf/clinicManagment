@@ -54,15 +54,24 @@ class DoctorContorller extends Controller
         }
     
     }
+
+    public function doctorProfile(){
+        return view('doctor.profile');
+    }
+
     public function showDoctors(){
         $doctors = Doctor::all();
         return view('doctor.list', compact('doctors'));
     }
+   
+   
     public function treatment($id){
         $patient = Patient::find(Crypt::decrypt($id));
         return view('patient.treatment', compact('patient'));
     }
-    public function treatments(Request $request){
+   
+   
+    public function PatientTreatment(Request $request){
         $patient  = Patient::find(Crypt::decrypt($request->patient_id));
         $treatment = new Treatment();
         $treatment->doctor_id = $patient->doctor->id;
@@ -71,7 +80,7 @@ class DoctorContorller extends Controller
         $treatment->additional_notes = $request->additional_notes;
   
         $treatment->save();
-        return redirect()->route('doctor.profile', compact('patient'));
+        return redirect()->route('doctor.profile');
     }
 
     public function delete($id){
@@ -79,10 +88,19 @@ class DoctorContorller extends Controller
         $doctor->delete();
         return redirect()->route('doctor.show')->with('message', 'Successfully deleted '.$doctor->name);
     }
+   
+   
+   
     public function viewupdate($id){
         $doctor = Doctor::find(Crypt::decrypt($id));
         return view('doctor.update', compact('doctor'));
     }
+   
+   
+   
+   
+   
+   
     public function update(DoctorUpdate $request){
         $doctor = Doctor::find(Crypt::decrypt($request->id));
         $input = [
@@ -111,6 +129,8 @@ class DoctorContorller extends Controller
         }
         
     }
+   
+   
     public function logout($id){
         $doctor = Doctor::find(Crypt::decrypt($id));
         auth()->guard('doctor')->logout();

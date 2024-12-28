@@ -11,7 +11,7 @@
         padding: 20px;
         margin: 150px auto;
         background-color: #f2e7e5;
-        width: 400px;
+        width: 200P;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         border-radius: 12px;
     }
@@ -63,10 +63,17 @@
 <div class="container">
     <h3>Receptionist Login Form</h3>
     <a href="{{ route('receptionist.index') }}">Don't have an account?</a>
+    @if(Session::has('message'))
+        <div class="alert alert-success" role="alert">
+
+        {{ Session::get('message') }}
+
+        </div>
+    @endif
     <form action="{{ route('receptionist.dologin') }}" method="post">
         @csrf
         <label for="email">Email</label>
-        <input type="email" class="form-controller" name="email" placeholder="Enter your email">
+        <input type="email" class="form-controller" name="email" placeholder="Enter your email" value="{{ old('email') }}">
         @error('email') <div class="alert">{{ $message }}</div> @enderror
 
         <label for="password">Password</label>
@@ -75,6 +82,7 @@
 
         <input type="submit" class="btn" value="Login">
     </form>
+    <a href="{{ route('receptionist.sendMail') }}">Forgot Password</a>
 </div>
 
 @endsection

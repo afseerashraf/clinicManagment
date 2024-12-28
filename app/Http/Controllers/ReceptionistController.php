@@ -8,6 +8,11 @@ use App\Http\Requests\ReceptionistRequest;
 use App\Models\Receptionist;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Receptionist\ReceptionistForgotPassword;
+use App\Http\Requests\Receptionist\forgotPasswordEmail;
+
 
 class ReceptionistController extends Controller
 {
@@ -41,7 +46,7 @@ class ReceptionistController extends Controller
            session(['receptionist' => $receptionist]);
            return view('receptionist.profile', compact('receptionist'));
         }else{
-            return "Dos not find the user! please register";
+            return redirect()->back()->with('message', 'Does not find the user');
         }
     }
 
@@ -62,6 +67,63 @@ class ReceptionistController extends Controller
         $receptionist = Receptionist::find(Crypt::decrypt($id));
         $receptionist->delete();
         return redirect()->route('receptionist.show');
+    }
+
+    public function MailforLink(){
+        return view('Receptionist.ForgotPassword.mail_id');
+    }
+
+    public function sendLink(forgotPasswordEmail $request){
+       
+        $receptionist = Receptionist::where('email', '=', $request->email)->first();
+        if($receptionist){
+          $token = Str::random(64);
+         
+          $receptionist->password_reset_token = $token;
+          $receptionist->save();
+
+          Mail::to($receptionist->email)->send(new ReceptionistForgotPassword($receptionist, $token));
+          return redirect()->back()->with('message', 'Password reset link sent to your email!');
+
+        }else{
+            return redirect()->route('showReceptionist.login')->with('message', " Server Doesn't find the user ");
+        }
+    }
+
+    public function viewResetPage($token){
+        $receptionist = Receptionist::where('password_reset_token', '=', $token)->first();
+
+        if($receptionist){
+            $receptionist->password_reset_token = 'null';
+            $receptionist->save();
+            return view('receptionist.ForgotPassword.resetPassword', compact('receptionist'));
+        }else{
+            return redirect()->route('showReceptionist.login')->with('message', 'No Valid User');
+        }
+       
+    }
+
+    public function resetedPassword(Request $request){
+        $request->validate([
+            'receptionist_id' => 'required',
+            'password' => 'required|min:8|confirmed',
+        ]);
+        $receptionist = Receptionist::find(Crypt::decrypt($request->receptionist_id));
+        if($receptionist){
+
+            $receptionist->update([
+                'password' => $request->password,
+            ]);
+    
+            toastr()->success($receptionist->name.' successfully reseted password!');
+    
+            return redirect()->route('showReceptionist.login');
+    
+        }else{
+            return redirect()->route('receptionist.sendMail')->with('message', 'Token is expired');
+        }
+     
+        
     }
 
 }

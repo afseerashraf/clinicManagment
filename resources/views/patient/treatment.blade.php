@@ -76,7 +76,7 @@
 
 <!-- Treatment Form -->
 <div class="treatment-form">
-    <form action="{{ route('treatment') }}" method="POST">
+    <form action="{{ route('Patient_reatment') }}" method="POST">
         @csrf
         <input type="hidden" name="patient_id" value="{{ encrypt($patient->id) }}">
         

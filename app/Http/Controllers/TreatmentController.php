@@ -13,6 +13,8 @@ class TreatmentController extends Controller
       $treatments = Treatment::whereDoesntHave('bill')->get(); //fetch the tretment geted patient who not paid bill.
       return view('treatment.unpaidPatientList', compact('treatments'));
    }
+
+
    public function destroyPatient($id){
       $patient = Treatment::find(Crypt::decrypt($id));
       $patient->delete();

@@ -19,5 +19,8 @@ class Patient extends Model
     }
     protected $casts = [
         'appoinment_date' => 'date',
+        'check_in' => 'datetime',
     ];
+
+   
 }

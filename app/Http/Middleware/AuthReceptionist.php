@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminOrReceptionist
+class AuthReceptionist
 {
     /**
      * Handle an incoming request.
@@ -15,11 +15,13 @@ class AdminOrReceptionist
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->guard('admin')->check() || auth()->guard('receptionist')->check()) {
-
+        if(auth()->guard('receptionist')->check()){
+           
             return $next($request);
+
         }else{
-            return redirect()->route('login');
+            
+            return redirect()->route('showReceptionist.login');
         }
     }
 }

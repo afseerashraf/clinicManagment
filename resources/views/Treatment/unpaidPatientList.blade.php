@@ -1,8 +1,8 @@
 @extends('layout.receptionistLayout')
-@section('title')Admin Dashboard @endsection
+@section('title')Receptionist Dashboard @endsection
 @section('content')
 
-<h3>Treatments</h3>
+<h3>Unpaid Patient</h3>
 <table class="table">
     <thead>
         <tr>
@@ -41,7 +41,7 @@
                 @endif
             </td>
             <td>{{ $treatment->treatment_description }}({{ $treatment->additional_notes }})</td>
-            <td>{{ $treatment->patient->check_in }}</td>
+            <td>{{ $treatment->patient->check_in->toDayDateTimeString() }}</td>
             <td>
                 @if(!$treatment->patient || !$treatment->doctor)
                 <a href="{{ route('treatment.delete', encrypt($treatment->id)) }}" class="btn btn-danger">Delete</a>

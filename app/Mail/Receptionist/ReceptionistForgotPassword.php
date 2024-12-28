@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\Receptionist;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -9,18 +9,18 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class AdminPasswordResetMail extends Mailable
+class ReceptionistForgotPassword extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public $admin;
+    public $receptionist;
     public $token;
-    public function __construct($admin, $token)
+    public function __construct($receptionist, $token)
     {
-        $this->admin = $admin;
+        $this->receptionist = $receptionist;
         $this->token = $token;
     }
 
@@ -30,7 +30,7 @@ class AdminPasswordResetMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Admin Password Reset Mail',
+            subject: 'Receptionist Forgot Password',
         );
     }
 
@@ -40,7 +40,7 @@ class AdminPasswordResetMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'admin.Mail.ResetFormLink',
+            view: 'receptionist.ForgotPassword.MailforPasswordReset',
         );
     }
 
