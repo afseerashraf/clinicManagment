@@ -1,35 +1,8 @@
 @extends('layout.layout')
 
 @section('title', 'Admin Register')
-
+<link rel="stylesheet" href="{{ asset('admin/css/register.css') }}">
 @section('content')
-
-<style>
-    .register-container {
-        padding-top: 50px;
-        background-color: #f2e7e5;
-        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        width: 100%;
-        max-width: 500px;
-        margin: 0 auto;
-    }
-
-    .register-container h3 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .register-container form {
-        padding: 20px;
-    }
-
-    .register-container a {
-        display: block;
-        margin-bottom: 15px;
-        text-align: center;
-    }
-</style>
 
 <div class="container">
     <div class="register-container">

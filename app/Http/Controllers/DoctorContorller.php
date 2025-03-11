@@ -15,7 +15,8 @@ use Illuminate\View\View;
 
 class DoctorContorller extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('Doctor.register');
     }
     public function register(DoctorRequest $request){
@@ -38,40 +39,55 @@ class DoctorContorller extends Controller
     public function doctorLogin(){
         return view('doctor.login');
     }
-    public function login(DoctorLogin $request){
-        if(auth()->guard('doctor')->attempt(['email' => $request->email, 'password' => $request->password])){
+
+
+    public function login(DoctorLogin $request)
+    {
+        if(auth()->guard('doctor')->attempt(['email' => $request->email, 'password' => $request->password]))
+        {
             $doctor = auth()->guard('doctor')->user();
             $patients = $doctor->patients()->whereDoesntHave('treatment')->get(); // select the patients who not get treatment
-            if(!$doctor->hasRole('doctor')){
+            if(!$doctor->hasRole('doctor'))
+            {
                 $doctor->assignRole('doctor');
-            }if(!$doctor->hasPermissionTo('patient_treatment')){
+            }
+            if(!$doctor->hasPermissionTo('patient_treatment'))
+            {
                 $doctor->givePermissionTo('patient_treatment');
             }
-            return view('doctor.profile', compact('doctor', 'patients'));
+            return view('doctor.profile',  compact('doctor', 'patients'));
             
-        }else{
+        }
+        else
+        {
             return redirect()->route('showDoctor.login');
         }
     
     }
 
-    public function doctorProfile(){
-        return view('doctor.profile');
+    public function doctorProfile()
+    {
+        $doctor = auth()->guard('doctor')->user();
+
+        $patients = $doctor->patients()->whereDoesntHave('treatment')->get(); // select the patients who not get treatment
+        return view('doctor.profile', compact('doctor', 'patients'));
     }
 
-    public function showDoctors(){
+    public function showDoctors()
+    {
         $doctors = Doctor::all();
         return view('doctor.list', compact('doctors'));
     }
    
    
-    public function treatment($id){
+    public function treatment($id)
+    {
         $patient = Patient::find(Crypt::decrypt($id));
         return view('patient.treatment', compact('patient'));
     }
    
-   
-    public function PatientTreatment(Request $request){
+    public function PatientTreatment(Request $request)
+    {
         $patient  = Patient::find(Crypt::decrypt($request->patient_id));
         $treatment = new Treatment();
         $treatment->doctor_id = $patient->doctor->id;
@@ -80,26 +96,22 @@ class DoctorContorller extends Controller
         $treatment->additional_notes = $request->additional_notes;
   
         $treatment->save();
-        return redirect()->route('doctor.profile');
+
+        return redirect()->route('doctor.profile')->with('done', 'successfully complete the treatment '.$patient->name);
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $doctor = Doctor::find(Crypt::decrypt($id));
         $doctor->delete();
         return redirect()->route('doctor.show')->with('message', 'Successfully deleted '.$doctor->name);
     }
    
-   
-   
-    public function viewupdate($id){
+    public function viewupdate($id)
+    {
         $doctor = Doctor::find(Crypt::decrypt($id));
         return view('doctor.update', compact('doctor'));
     }
-   
-   
-   
-   
-   
    
     public function update(DoctorUpdate $request){
         $doctor = Doctor::find(Crypt::decrypt($request->id));
@@ -118,6 +130,7 @@ class DoctorContorller extends Controller
         $doctor->save();
         return redirect()->route('doctor.show');
     }
+
     public function getPatient(Request $request){ //search patient
         $doctorId = Crypt::decrypt($request->doctor_id);
         $doctor = Doctor::find($doctorId);

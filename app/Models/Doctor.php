@@ -14,11 +14,13 @@ class Doctor  extends Authenticatable
     use HasFactory,  HasRoles, HasPermissions;
     protected $fillable = ['name', 'email', 'phone', 'specialized', 'password' ,'image'];
 
-    public function patients(){
+    public function patients()
+    {
         return $this->hasMany(Patient::class);
     }
 
-    public function treatment(){
+    public function treatment()
+    {
         return $this->hasMany(Treatment::class);
     }
 

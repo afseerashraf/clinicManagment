@@ -3,72 +3,8 @@
 @section('title', 'Doctor Register')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('doctor/css/register.css') }}">
 
-<style>
-    body {
-        background-color: #e3f2fd;
-    }
-
-    .container {
-        margin-top: 50px;
-        max-width: 600px;
-        background-color: #ffffff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    h3 {
-        text-align: center;
-        color: #0d6efd;
-        margin-bottom: 20px;
-    }
-
-    label {
-        font-weight: bold;
-        margin-top: 10px;
-        color: #333;
-    }
-
-    input[type="text"], 
-    input[type="email"], 
-    input[type="password"], 
-    input[type="file"] {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        margin-bottom: 15px;
-        border: 1px solid #ced4da;
-        border-radius: 5px;
-    }
-
-    .btn {
-        width: 100%;
-        padding: 10px;
-        background-color: #0d6efd;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-    }
-
-    .btn:hover {
-        background-color: #0b5ed7;
-    }
-
-    a {
-        display: block;
-        text-align: center;
-        margin-top: 15px;
-        color: #0d6efd;
-    }
-
-    .alert {
-        margin-top: 10px;
-        padding: 8px;
-        font-size: 14px;
-    }
-</style>
 
 <div class="container">
     <h3>Doctor Registration Form</h3>

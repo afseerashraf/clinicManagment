@@ -36,7 +36,7 @@ class CreatePatient implements ShouldBroadcast
     }
 
     public function broadcastAs(): string
-{
-    return 'patient.created';
-}
+    {
+        return 'patient.created';
+    }
 }

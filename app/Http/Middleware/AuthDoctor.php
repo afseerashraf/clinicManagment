@@ -15,6 +15,7 @@ class AuthDoctor
      */
     public function handle(Request $request, Closure $next): Response
     {
+        
         if(auth()->guard('doctor')->check()){
             return $next($request);
         }else{

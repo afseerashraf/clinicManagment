@@ -8,11 +8,15 @@ use Illuminate\Support\Facades\Auth;
 
 class userController extends Controller
 {
-    public function userlogin(Request $request){
+    public function userlogin(Request $request)
+    {
       $credential = (['email' => $request->email, 'password' => $request->password]);
-      if(Auth::attempt($credential)){
+      if(Auth::attempt($credential))
+      {
         return 'success';
-      }else{
+      }
+      else
+      {
         return 'no';
       }
     }

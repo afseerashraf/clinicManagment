@@ -1,75 +1,7 @@
 @extends('layout.adminLayout')
 @section('title') Patient Update @endsection
 
-<style>
-    * {
-        box-sizing: border-box; 
-    }
-
-    body {
-        font-family: Arial, sans-serif; 
-        background-color: #f9f9f9; 
-        color: #333; 
-    }
-
-    .container {
-        padding: 20px; 
-        margin: 60px auto; 
-        width: 500px; 
-        background-color: #f2e7e5; 
-        border-radius: 10px; 
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
-    }
-
-    h3 {
-        text-align: center; 
-        margin-bottom: 20px; 
-        color: #007bff; 
-    }
-
-    label {
-        font-weight: bold;
-        margin-top: 10px;
-        display: block; 
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="date"],
-    select {
-        width: calc(100% - 24px); 
-        padding: 12px; 
-        margin-top: 5px; 
-        margin-bottom: 15px; 
-        border: 1px solid #ccc; 
-        border-radius: 5px;
-        font-size: 16px;
-    }
-
-    .btn {
-        width: 100%; 
-        padding: 12px; 
-        background-color: #007bff; 
-        color: white; 
-        border: none; 
-        border-radius: 5px; 
-        font-size: 18px; 
-        cursor: pointer; 
-        transition: background-color 0.3s; 
-    }
-
-    .btn:hover {
-        background-color: #0056b3; 
-    }
-
-    .alert {
-        color: red; 
-        font-size: 14px; 
-        margin-top: -10px; 
-        margin-bottom: 10px; 
-    }
-</style>
-
+<link rel="stylesheet" href="{{ asset('patient/css/edit.css') }}">
 @section('content')
 <div class="container">
     <h3>🩺 Update Patient Details</h3>

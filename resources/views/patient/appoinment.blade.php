@@ -1,40 +1,11 @@
 @extends('layout.receptionistLayout')
 @section('title', 'Receptionist Dashboard')
 
-@section('head')
-<style>
-    .container {
-        margin: 20px auto;
-        max-width: 1200px;
-        padding: 20px;
-        border-radius: 10px;
-        background-color: #f9f9f9;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    h3 {
-        color: #007bff;
-    }
-    .alert {
-        margin-bottom: 20px;
-    }
-    .table th, .table td {
-        vertical-align: middle;
-    }
-    .table-striped tbody tr:nth-of-type(odd) {
-        background-color: #f2f2f2;
-    }
-    .btn-outline-success, .btn-outline-danger, .btn-outline-warning {
-        font-weight: bold;
-    }
-</style>
-@endsection
+<link rel="stylesheet" href="{{ asset('patient/css/appoinment.css') }}">
 
 @section('content')
 
 <div class="container">
-
-
-
 
 
     <h3 class="text-center mb-4">👥 Patients Appointment List</h3>

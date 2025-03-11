@@ -17,7 +17,7 @@
             </tr>
             <tbody>
        
-            @foreach($payBill as $payBill)  
+            @foreach($payBills as $payBill)  
            
                <tr>
                 <td>{{ $loop->iteration }}</td>

@@ -26,7 +26,7 @@ class PatientsBillEmail implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to('afseer@gmail.com')->send(new PatientBill($this->patientBill, $this->pdfPath));
+        Mail::to($this->patientBill->treatment->patient->email)->send(new PatientBill($this->patientBill, $this->pdfPath));
 
     }
 }

@@ -12,11 +12,13 @@ use App\Events\CreatePatient;
 
 class PatientController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $doctors = Doctor::all();
         return view('patient.register', compact('doctors'));
     }
-    public function register(PatientRequest $request){
+    public function create(PatientRequest $request)
+    {
         $patient = new Patient();
         $patient->appoinment_date = $request->date;
         $patient->name = $request->name;
@@ -30,21 +32,24 @@ class PatientController extends Controller
         $patient->check_in = now();
         $patient->save();
         CreatePatient::dispatch($patient);
-        return redirect()->route('patient.show');
+        return redirect()->back()->with('register', 'Successfully register '.$patient->name);
     }
-    public function show(){
+    public function show()
+    {
         $patients = Patient::orderBy('appoinment_date', 'desc')->get();
         return view('patient.appoinment', compact('patients'));
     }
     
-    public function edit($id){
+    public function edit($id)
+    {
         $patient = Patient::find(Crypt::decrypt($id));
         $doctors = Doctor::all();
         return view('patient.edit', compact('patient', 'doctors'));
     }
-    public function update(PatientRequest $request){
+    public function update(PatientRequest $request)
+    {
         $patient = Patient::find(Crypt::decrypt($request->patient_id));
-        $input = [
+        $patient->update([
             'appoinment_date' => $request->date,
             'name' => $request->name,
             'age' => $request->age,
@@ -54,12 +59,12 @@ class PatientController extends Controller
             'house' => $request->house,
             'medical_history' => $request->medicalHistory,
             'doctor_id' => $request->doctor_id,
-        ];
-        $patient->update($input);
-        $patient->save();
+        ]) ;
+
         return redirect()->route('patient.show');
     }
-    public function destroy($id){
+    public function destroy($id)
+    {
         $patient = Patient::find(Crypt::decrypt($id));
         $patient->delete();
        

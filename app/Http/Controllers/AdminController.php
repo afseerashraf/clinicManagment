@@ -99,10 +99,13 @@ class AdminController extends Controller
             Mail::to($admin->email)->send(new AdminPasswordResetMail($admin, $token));
             return redirect()->back()->with('message', 'Password reset link sent to your email!');
         
-        } else {
+        } 
+        else
+        {
             return redirect()->back()->with('message', 'Server can not find '.$request->email);
         }
     }
+    
     public function viewResetForm($token)
     {
 
@@ -113,7 +116,9 @@ class AdminController extends Controller
             $admin->password_reset_token = 'null';
             $admin->save();
             return view('admin.resetPasswordForm', compact('admin'));
-        } else {
+        } 
+        else 
+        {
             return redirect()->route('showAdmin.login');
         }
 
@@ -139,7 +144,9 @@ class AdminController extends Controller
             toastr()->success('successfully reseted password!');
 
             return redirect()->route('showAdmin.login');
-        } else {
+        } 
+        else
+        {
 
             return redirect()->route('viewsendEmail');
         }

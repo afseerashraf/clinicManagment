@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <link rel="stylesheet" href="{{ asset('sidebar/sidebar.css') }}">
     <script src="{{ asset('sidebar/sidebar.js') }}"></script>
@@ -124,8 +125,8 @@
     <div class="sidebar">
        
         @if(auth()->guard('receptionist')->check() && auth()->guard('receptionist')->user()->hasRole('receptionist'))
-        <a href="{{ route('receptionist.profile') }}">Profile</a>
-        <a href="{{ route('patient.index') }}">Register Patient</a>
+        <a href="{{ route('receptionist.profile') }}"><i class="fas fa-user"></i> Profile</a>
+        <a href="{{ route('patient.index') }}"> Register Patient</a>
         <a href="{{ route('patient.show') }}">Patients</a>
         <a href="{{ route('unpaid.patients') }}">Unpaid Patients</a>
         <a href="{{ route('show.paidPatients') }}">Paid Patients</a>
@@ -150,13 +151,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-<script>
-    window.onload = function() {
-      $('a').hover(function(){
-       
-      })
-    }
-</script>
+
 
 </body>
 

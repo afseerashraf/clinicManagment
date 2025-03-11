@@ -29,7 +29,7 @@ class DoctorRequest extends FormRequest
             'phone' =>['required', 'numeric',  'digits_between:10,12'],
             'specialized' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
             'password' => ['required',password::min(8)->letters()->numbers()],
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
            
         ];
     }

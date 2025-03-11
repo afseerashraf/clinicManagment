@@ -1,35 +1,9 @@
 @extends('layout.layout')
 
 @section('title', 'Admin Login')
-
+<link rel="stylesheet" href="{{ asset('admin/css/login.css') }}">
 @section('content')
 
-<style>
-    .login-container {
-        padding-top: 50px;
-        background-color: #f2e7e5;
-        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        width: 100%;
-        max-width: 500px;
-        margin: 0 auto;
-    }
-
-    .login-container h3 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .login-container form {
-        padding: 20px;
-    }
-
-    .login-container a {
-        display: block;
-        margin-bottom: 15px;
-        text-align: center;
-    }
-</style>
 
 <div class="container">
     <div class="login-container">

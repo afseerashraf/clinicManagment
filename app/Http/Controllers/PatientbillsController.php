@@ -11,6 +11,7 @@ use App\Mail\PatientBill;
 use Illuminate\Support\Facades\Mail;
 use App\Jobs\PatientsBillEmail;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Illuminate\Support\Facades\DB;
 
 class PatientbillsController extends Controller
 {
@@ -21,10 +22,13 @@ class PatientbillsController extends Controller
 
         $payBill->doctor_fees = $request->doctor_fees;
 
-        if ($request->has('additional_charges')) {
+        if ($request->has('additional_charges')) 
+        {
             $payBill->additional_charges =  $request->additional_charges;
             $payBill->total_amount =  $payBill->doctor_fees +  $payBill->additional_charges;
-        } else {
+        } 
+        else 
+        {
             $payBill->total_amount =  $payBill->doctor_fees;
         }
         $payBill->check_out = now();
@@ -38,9 +42,12 @@ class PatientbillsController extends Controller
 
     public function paidPatients()
     {
-        $payBill = Bill::latest()->get();
-        return view('bill.patientsBill', compact('payBill'));
+        $payBills = Bill::all();
+
+        return view('bill.patientsBill', compact('payBills'));
     }
+
+
     public function paydbill(Request $request){
         $payBill = Bill::find(Crypt::decrypt($request->treatment_id));
         return view('bill.bill', compact('payBill'));
