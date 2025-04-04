@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('patient_bills', function (Blueprint $table) {
-            
+
             $table->dropColumn('additional_charges');
         });
         Schema::table('patient_bills', function (Blueprint $table) {
             $table->double('additional_charges')
-            ->comment('any test')->nullable()->after('doctor_fees');
-            
+                ->comment('any test')->nullable()->after('doctor_fees');
+
         });
     }
 

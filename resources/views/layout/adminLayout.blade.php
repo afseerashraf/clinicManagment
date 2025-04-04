@@ -120,7 +120,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
         @if(auth()->guard('admin')->check() && auth()->guard('admin')->user()->hasRole('admin'))
-        <a href="{{ route('admin.dashboard') }}">Dashboard</a>
+        <a href="{{ route('admin.dashboard') }}">Profile</a>
         <a href="{{ route('doctor.show') }}">Doctors</a>
         <a href="{{ route('receptionist.show') }}">Receptionists</a>
         @endif

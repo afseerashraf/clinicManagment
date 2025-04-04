@@ -15,12 +15,14 @@ class AuthDoctor
      */
     public function handle(Request $request, Closure $next): Response
     {
-        
-        if(auth()->guard('doctor')->check()){
+
+        if (auth()->guard('doctor')->check()) {
             return $next($request);
-        }else{
+        }
+
+        if ($request->route() && $request->route()->getName() !== 'showDoctor.login') {
+
             return redirect()->route('showDoctor.login');
         }
-        
     }
 }

@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('patient_bills', function (Blueprint $table) {
-            $table->dropForeign(['treatment_id']); 
+            $table->dropForeign(['treatment_id']);
             $table->foreign('treatment_id')
-                  ->references('id')
-                  ->on('treatments')
-                  ->onDelete('cascade') // Automatically delete related patient bills
-                  ->onUpdate('cascade');
+                ->references('id')
+                ->on('treatments')
+                ->onDelete('cascade') // Automatically delete related patient bills
+                ->onUpdate('cascade');
         });
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
+
 class RecepitionistLogin extends FormRequest
 {
     /**
@@ -23,7 +24,7 @@ class RecepitionistLogin extends FormRequest
     {
         return [
             'email' => ['required', 'email'],
-            'password' => ['required',password::min(8)->letters()->numbers()]
+            'password' => ['required', password::min(8)->letters()->numbers()],
 
         ];
     }

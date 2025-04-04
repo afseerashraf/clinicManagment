@@ -19,8 +19,7 @@ return new class extends Migration
             $table->string('place');
             $table->string('house');
             $table->string('medical_history');
-            
-        
+
             $table->timestamps();
         });
     }

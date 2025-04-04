@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Patient;
+use Illuminate\Database\Seeder;
+
 class CreatePatient extends Seeder
 {
     /**
@@ -14,7 +14,7 @@ class CreatePatient extends Seeder
     {
         Patient::create([
             'appoinment_date' => '20-12-2024',
-            'name' => 'afseer', 
+            'name' => 'afseer',
             'age' => '24',
             'phone' => '7356233174',
             'email' => 'afseer@gmail.com',
@@ -26,7 +26,7 @@ class CreatePatient extends Seeder
 
         Patient::create([
             'appoinment_date' => '25-12-2024',
-            'name' => 'salman', 
+            'name' => 'salman',
             'age' => '26',
             'phone' => '9088765466',
             'email' => 'salman@gmail.com',

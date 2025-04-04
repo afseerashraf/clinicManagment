@@ -1,27 +1,20 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DoctorContorller;
+use App\Http\Controllers\PatientbillsController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ReceptionistController;
-use App\Http\Middleware\Receptionist;
 use App\Http\Controllers\TreatmentController;
-use App\Http\Controllers\billController;
-use App\Http\Controllers\PatientbillsController;
-use Illuminate\Http\Client\Request;
-use Illuminate\Support\Facades\Request as FacadesRequest;
+use App\Http\Middleware\Receptionist;
 use App\Models\Treatment;
-use App\Http\Middleware\AdminOrReceptionist;
-use App\Http\Controllers\userController;
-use App\Http\Middleware\AuthDoctor;
-use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-//admin
+// admin
 Route::prefix('admin')->controller(AdminController::class)->group(function () {
     Route::get('/', 'index')->name('showAdmin.register');
 
@@ -31,7 +24,7 @@ Route::prefix('admin')->controller(AdminController::class)->group(function () {
 
     Route::post('dologin', 'login')->name('admin.login');
 
-    Route::group(['middleware' => ['auth:admin','permission:manage users']], function () {
+    Route::group(['middleware' => ['auth:admin', 'permission:manage users']], function () {
 
         Route::get('dashboard', 'dashoard')->name('admin.dashboard'); // admin can handle the all users.
 
@@ -47,7 +40,7 @@ Route::prefix('admin')->controller(AdminController::class)->group(function () {
     Route::post('reseted', 'resetedPassword')->name('resetedPassword');
 });
 
-//Doctor 
+// Doctor
 Route::prefix('doctor')->controller(DoctorContorller::class)->group(function () {
 
     Route::get('doctor', 'index')->name('doctor.index');
@@ -58,11 +51,18 @@ Route::prefix('doctor')->controller(DoctorContorller::class)->group(function () 
 
     Route::post('dologin', 'login')->name('doctor.doLogin');
 
-    Route::get('show', 'showDoctors')->name('doctor.show')->middleware(['auth:admin','permission:manage users']); // it show all the registered doctors.
-    Route::get('edit/{id}', 'viewupdate')->name('edit.doctor')->middleware(['auth:admin', 'permission:manage users']);
-    Route::post('update', 'update')->name('update')->middleware(['auth:admin','permission:manage users']);;
+    Route::middleware('auth:admin')->group(function () {
+        Route::get('show', 'showDoctors')->name('doctor.show'); // it show all the registered doctors.
 
-    Route::middleware('AuthCheckDoctor')->group(function(){
+        Route::get('edit/{id}', 'viewupdate')->name('edit.doctor');
+
+        Route::post('update', 'update')->name('update');
+
+        Route::get('delete/{id}', 'delete')->name('delete.doctor');
+
+    });
+
+    Route::middleware('AuthCheckDoctor')->group(function () {
 
         Route::get('profile', 'doctorProfile')->name('doctor.profile');
 
@@ -70,16 +70,14 @@ Route::prefix('doctor')->controller(DoctorContorller::class)->group(function () 
 
         Route::post('treatments', 'PatientTreatment')->name('Patient_treatment');
 
-        Route::get('delete/{id}', 'delete')->name('delete.doctor');
-
         Route::get('getpatient', 'getPatient')->name('getPatient');
 
         Route::get('logout/{id}', 'logout')->name('doctor.logout');
-   });
-   
+    });
+
 });
 
-//Receptionist
+// Receptionist
 Route::prefix('receptionist')->controller(ReceptionistController::class)->group(function () {
 
     Route::get('index', 'index')->name('receptionist.index');
@@ -92,14 +90,14 @@ Route::prefix('receptionist')->controller(ReceptionistController::class)->group(
 
     Route::get('profile', 'profile')->name('receptionist.profile')->middleware('AuthReceptionist');
 
-    Route::get('show', 'show')->name('receptionist.show')->middleware(['auth:admin','permission:manage users']); //it show the all registered receptionist only admin can access this route.
+    Route::get('show', 'show')->name('receptionist.show')->middleware(['auth:admin', 'permission:manage users']); // it show the all registered receptionist only admin can access this route.
 
     Route::get('logout/{id}', 'logout')->name('receptionist.logout');
 
     Route::get('delete/{id}', 'delete')->name('delete.receptionist');
 
     Route::get('session', 'session');
-    //Reset Password
+    // Reset Password
     Route::get('mail', 'MailforLink')->name('receptionist.sendMail');
 
     Route::post('sendLink', 'sendLink')->name('receptionist.sendLink');
@@ -110,7 +108,7 @@ Route::prefix('receptionist')->controller(ReceptionistController::class)->group(
 
 });
 
-Route::group(['middleware' => ['auth:receptionist','permission:manage_patients']], function () {
+Route::group(['middleware' => ['auth:receptionist', 'permission:manage_patients']], function () {
 
     Route::prefix('patient')->controller(PatientController::class)->group(function () {
 
@@ -138,7 +136,6 @@ Route::group(['middleware' => ['auth:receptionist','permission:manage_patients']
 
     });
 
-
     Route::prefix('bill')->controller(PatientbillsController::class)->group(function () {
 
         Route::post('paybill', 'payBill')->name('bill.pay');
@@ -151,5 +148,3 @@ Route::group(['middleware' => ['auth:receptionist','permission:manage_patients']
 
     });
 });
-
-

@@ -51,7 +51,7 @@ return [
         'receptionist' => [
             'driver' => 'session',
             'provider' => 'recetionists',
-        ]
+        ],
     ],
 
     /*

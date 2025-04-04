@@ -15,13 +15,13 @@ class AuthReceptionist
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->guard('receptionist')->check()){
-           
+        if (auth()->guard('receptionist')->check()) {
+
             return $next($request);
 
-        }else{
-            
+        } else {
             return redirect()->route('showReceptionist.login');
         }
+
     }
 }

@@ -12,15 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('patients', function (Blueprint $table) {
-            $table->dropForeign(['doctor_id']); 
+            $table->dropForeign(['doctor_id']);
             $table->dropColumn('doctor_id');
         });
         Schema::table('patients', function (Blueprint $table) {
             $table->unsignedBigInteger('doctor_id')->nullable()->after('medical_history'); // Add the doctor_id column again and make it nullable if you want to allow disassociation
             $table->foreign('doctor_id')
-                  ->references('id')
-                  ->on('doctors')
-                  ->onDelete('set null'); 
+                ->references('id')
+                ->on('doctors')
+                ->onDelete('set null');
         });
     }
 

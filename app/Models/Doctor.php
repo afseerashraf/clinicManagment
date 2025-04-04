@@ -3,16 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Traits\HasPermissions;
+use Spatie\Permission\Traits\HasRoles;
 
-class Doctor  extends Authenticatable
+class Doctor extends Authenticatable
 {
-    use HasFactory,  HasRoles, HasPermissions;
-    protected $fillable = ['name', 'email', 'phone', 'specialized', 'password' ,'image'];
+    use HasFactory,  HasPermissions, HasRoles;
+
+    protected $fillable = ['name', 'email', 'phone', 'specialized', 'password', 'image'];
 
     public function patients()
     {
@@ -25,9 +24,9 @@ class Doctor  extends Authenticatable
     }
 
     protected function casts(): array
-   {
-       return [
-           'password' => 'hashed',
-       ];
-   }
+    {
+        return [
+            'password' => 'hashed',
+        ];
+    }
 }

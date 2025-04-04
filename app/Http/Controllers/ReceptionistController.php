@@ -3,16 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RecepitionistLogin;
-use Illuminate\Http\Request;
-use App\Http\Requests\ReceptionistRequest;
-use App\Models\Receptionist;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\Receptionist\ReceptionistForgotPassword;
 use App\Http\Requests\Receptionist\forgotPasswordEmail;
-
+use App\Http\Requests\ReceptionistRequest;
+use App\Mail\Receptionist\ReceptionistForgotPassword;
+use App\Models\Receptionist;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class ReceptionistController extends Controller
 {
@@ -20,6 +18,7 @@ class ReceptionistController extends Controller
     {
         return view('receptionist.register');
     }
+
     public function register(ReceptionistRequest $request)
     {
         $receptionist = new Receptionist();
@@ -37,24 +36,21 @@ class ReceptionistController extends Controller
     {
         return view('receptionist.login');
     }
+
     public function login(RecepitionistLogin $request)
     {
         $credentials = $request->only('email', 'password');
-        if(auth()->guard('receptionist')->attempt($credentials))
-        {
-           $receptionist = auth()->guard('receptionist')->user();
-           if(!$receptionist->hasRole('receptionist'))
-           {
-            $receptionist->assignRole('receptionist');
-           }
-           if(!$receptionist->hasPermissionTo('manage_patients'))
-           {
-            $receptionist->givePermissionTo('manage_patients');
-           }
-           return view('receptionist.profile', compact('receptionist'));
-        }
-        else
-        {
+        if (auth()->guard('receptionist')->attempt($credentials)) {
+            $receptionist = auth()->guard('receptionist')->user();
+            if (! $receptionist->hasRole('receptionist')) {
+                $receptionist->assignRole('receptionist');
+            }
+            if (! $receptionist->hasPermissionTo('manage_patients')) {
+                $receptionist->givePermissionTo('manage_patients');
+            }
+
+            return view('receptionist.profile', compact('receptionist'));
+        } else {
             return redirect()->back()->with('message', 'Does not find the user');
         }
     }
@@ -62,26 +58,30 @@ class ReceptionistController extends Controller
     public function profile()
     {
         $receptionist = auth()->guard('receptionist')->user();
+
         return view('receptionist.profile', compact('receptionist'));
     }
 
     public function show()
     {
         $receptionists = Receptionist::all();
+
         return view('receptionist.list', compact('receptionists'));
     }
 
-   
     public function logout($id)
     {
         $receptionist = Receptionist::find(Crypt::decrypt($id));
         auth()->guard('receptionist')->logout();
+
         return redirect()->route('showReceptionist.login');
     }
+
     public function delete($id)
     {
         $receptionist = Receptionist::find(Crypt::decrypt($id));
         $receptionist->delete();
+
         return redirect()->route('receptionist.show');
     }
 
@@ -92,20 +92,19 @@ class ReceptionistController extends Controller
 
     public function sendLink(forgotPasswordEmail $request)
     {
-       
+
         $receptionist = Receptionist::where('email', '=', $request->email)->first();
-        if($receptionist){
-          $token = Str::random(64);
-         
-          $receptionist->password_reset_token = $token;
-          $receptionist->save();
+        if ($receptionist) {
+            $token = Str::random(64);
 
-          Mail::to($receptionist->email)->send(new ReceptionistForgotPassword($receptionist, $token));
-          return redirect()->back()->with('message', 'Password reset link sent to your email!');
+            $receptionist->password_reset_token = $token;
+            $receptionist->save();
 
-        }
-        else
-        {
+            Mail::to($receptionist->email)->send(new ReceptionistForgotPassword($receptionist, $token));
+
+            return redirect()->back()->with('message', 'Password reset link sent to your email!');
+
+        } else {
             return redirect()->route('showReceptionist.login')->with('message', " Server Doesn't find the user ");
         }
     }
@@ -114,17 +113,15 @@ class ReceptionistController extends Controller
     {
         $receptionist = Receptionist::where('password_reset_token', '=', $token)->first();
 
-        if($receptionist)
-        {
+        if ($receptionist) {
             $receptionist->password_reset_token = 'null';
             $receptionist->save();
+
             return view('receptionist.ForgotPassword.resetPassword', compact('receptionist'));
-        }
-        else
-        {
+        } else {
             return redirect()->route('showReceptionist.login')->with('message', 'No Valid User');
         }
-       
+
     }
 
     public function resetedPassword(Request $request)
@@ -134,31 +131,27 @@ class ReceptionistController extends Controller
             'password' => 'required|min:8|confirmed',
         ]);
         $receptionist = Receptionist::find(Crypt::decrypt($request->receptionist_id));
-        if($receptionist){
+        if ($receptionist) {
 
             $receptionist->update([
                 'password' => $request->password,
             ]);
-    
+
             toastr()->success($receptionist->name.' successfully reseted password!');
-    
+
             return redirect()->route('showReceptionist.login');
-    
-        }
-        else
-        {
+
+        } else {
             return redirect()->route('receptionist.sendMail')->with('message', 'Token is expired');
         }
-     
-        
+
     }
 
     public function session(Request $request)
     {
-        
+
         $data = $request->session()->all();
 
         return $data;
     }
-
 }

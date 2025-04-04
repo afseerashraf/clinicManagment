@@ -24,7 +24,7 @@ class DoctorLogin extends FormRequest
     {
         return [
             'email' => ['required', 'email'],
-            'password' => ['required',password::min(8)->letters()->numbers()],
+            'password' => ['required', password::min(8)->letters()->numbers()],
 
         ];
     }

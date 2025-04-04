@@ -2,10 +2,11 @@
 
 namespace App\Jobs;
 
+use App\Mail\PatientBill;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\PatientBill;
+
 class PatientsBillEmail implements ShouldQueue
 {
     use Queueable;
@@ -14,7 +15,9 @@ class PatientsBillEmail implements ShouldQueue
      * Create a new job instance.
      */
     public $patientBill;
+
     public $pdfPath;
+
     public function __construct($paybill, $pdfPath)
     {
         $this->patientBill = $paybill;

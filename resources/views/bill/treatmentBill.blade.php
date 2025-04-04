@@ -19,13 +19,17 @@
         @csrf
         <input type="hidden" name="treatment_id" value="{{ encrypt($treatmentBill->id) }}">
 
+        
         <label for="doctor_fees">Doctor Fees</label>
+        
         <input type="text" class="form-controller" name="doctor_fees" placeholder="Enter fees">
         @error('doctor_fees') 
         <p class="error-message">{{ $message }}</p> 
         @enderror
 
+        
         <label for="additional_charge">Additional Charges</label>
+       
         <input type="text" class="form-controller" name="additional_charge" placeholder="Lab test, etc.">
         @error('additional_charge') 
         <p class="error-message">{{ $message }}</p> 

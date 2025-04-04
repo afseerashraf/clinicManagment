@@ -23,15 +23,15 @@ class PatientRequest extends FormRequest
     {
         return [
             'date' => ['required', 'date'],
-            'name' =>['required', 'regex:/^[a-zA-Z\s]+$/'],
+            'name' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
             'age' => ['required', 'numeric'],
-            'phone' =>['required', 'numeric',  'digits_between:10,12'],
+            'phone' => ['required', 'numeric',  'digits_between:10,12'],
             'email' => ['required', 'email'],
             'place' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
             'house' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
             'medicalHistory' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
             'doctor_id' => ['required', 'numeric'],
-            
+
         ];
     }
 }

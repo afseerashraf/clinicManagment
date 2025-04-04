@@ -23,10 +23,10 @@ class AdminRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' =>['required', 'regex:/^[a-zA-Z\s]+$/'],
+            'name' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
             'email' => ['required', 'email'],
-            'phone' =>['required', 'numeric',  'digits_between:10,12'],
-            'password' => ['required',password::min(8)->letters()->numbers()]
+            'phone' => ['required', 'numeric',  'digits_between:10,12'],
+            'password' => ['required', password::min(8)->letters()->numbers()],
         ];
     }
 }

@@ -12,7 +12,6 @@
         <li>Doctor: {{ $patient->doctor->name }}</li>
     </ul>
 </div>
-
 <!-- Treatment Form -->
 <div class="treatment-form">
     @if(Session()->has('done'))

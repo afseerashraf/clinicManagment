@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Receptionist;
+use Illuminate\Database\Seeder;
+
 class Receptionistseeder extends Seeder
 {
     /**

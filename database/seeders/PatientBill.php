@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Bill;
+use Illuminate\Database\Seeder;
+
 class PatientBill extends Seeder
 {
     /**
@@ -17,6 +17,6 @@ class PatientBill extends Seeder
             'doctor_fees' => 350,
             'total_amount' => 350,
         ]);
-     
+
     }
 }
