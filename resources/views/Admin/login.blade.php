@@ -37,6 +37,10 @@
             <div class="d-grid">
                 <button type="submit" class="btn btn-outline-primary">Login</button>
             </div>
+
+            <div class="div">
+                <a href="{{ url('admin/auth/redirect') }}">Login with Github</a>
+            </div>
         </form>
     </div>
 </div>

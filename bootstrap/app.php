@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
             'AuthCheckDoctor' => \App\Http\Middleware\AuthDoctor::class,
             'AuthReceptionist' => \App\Http\Middleware\AuthReceptionist::class,
+            'AdminAuth' => \App\Http\Middleware\Adminauth::class,
 
         ]);
 

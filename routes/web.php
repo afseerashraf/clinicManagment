@@ -24,6 +24,11 @@ Route::prefix('admin')->controller(AdminController::class)->group(function () {
 
     Route::post('dologin', 'login')->name('admin.login');
 
+    //Github authentication
+    Route::get('auth/redirect', 'redirectGithub')->name('github.redirect');
+
+    Route::get('auth/callback/github', 'handleGithubCallback')->name('github.callback');
+
     Route::group(['middleware' => ['auth:admin', 'permission:manage users']], function () {
 
         Route::get('dashboard', 'dashoard')->name('admin.dashboard'); // admin can handle the all users.
@@ -51,7 +56,7 @@ Route::prefix('doctor')->controller(DoctorContorller::class)->group(function () 
 
     Route::post('dologin', 'login')->name('doctor.doLogin');
 
-    Route::middleware('auth:admin')->group(function () {
+    Route::middleware('AdminAuth')->group(function () {
         Route::get('show', 'showDoctors')->name('doctor.show'); // it show all the registered doctors.
 
         Route::get('edit/{id}', 'viewupdate')->name('edit.doctor');

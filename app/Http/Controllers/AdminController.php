@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Laravel\Socialite\Facades\Socialite;
 
 class AdminController extends Controller
 {
@@ -53,6 +54,39 @@ class AdminController extends Controller
             return redirect()->route('showAdmin.login');
         }
     }
+
+    //GitHub authentication
+    public function redirectGithub()
+    {
+        return Socialite::driver('github')->redirect();
+    }
+
+    public function handleGithubCallback()
+    {
+
+        $githubUser = Socialite::driver('github')->user();
+
+        dd($githubUser);
+   
+    //     $admin = Admin::updateOrcreate([
+
+    //         'github_id' => $githubUser->id,
+    //     ],
+    //         [
+    //             'name' => $githubUser->name,
+
+    //             'email' => $githubUser->email,
+
+    //             'github_token' => $githubUser->token,
+
+    //             'github_refresh_token' => $githubUser->refreshToken,
+    //     ]);
+    //    auth()->guard('admin')->login($admin);
+
+    //    return redirect('admin/dashboard');
+   }
+
+
 
     public function dashoard()
     {

@@ -8,9 +8,10 @@
 
 <div class="container">
     <h3>Doctor Registration Form</h3>
+
     <a href="{{ route('showDoctor.login') }}">Already have an account? Login here</a>
 
-    <form action="{{ route('doctor.register') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('doctor.register') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="name">Name</label>
@@ -46,9 +47,12 @@
             <label for="image">Profile Picture</label>
             <input type="file" class="form-control" name="image">
         </div>
+        <div id="response" class="mt-3"></div>
 
         <button type="submit" class="btn">Register</button>
     </form>
 </div>
+
+
 
 @endsection
