@@ -17,6 +17,7 @@ class TreatmentController extends Controller
     public function destroyPatient($id)
     {
         $patient = Treatment::find(Crypt::decrypt($id));
+        
         $patient->delete();
 
         return redirect()->route('patients.treatment');

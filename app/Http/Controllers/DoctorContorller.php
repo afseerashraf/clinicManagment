@@ -11,23 +11,25 @@ use App\Models\Treatment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\Facades\DataTables;
 
 class DoctorContorller extends Controller
 {
-    public function index()
-    {
-        return view('Doctor.register');
-    }
-
+    
     public function register(DoctorRequest $request)
     {
         $input = [
             'name' => $request->name,
+
             'email' => $request->email,
+
             'phone' => $request->phone,
+
             'specialized' => $request->specialized,
+
             'password' => $request->password,
         ];
+
         if ($request->hasfile('image')) {
 
             $fileName = time().'.'.$request->image->getClientOriginalExtension();
@@ -41,26 +43,30 @@ class DoctorContorller extends Controller
         return redirect()->route('showDoctor.login');
     }
 
-    public function doctorLogin()
-    {
-        return view('doctor.login');
-    }
+    
 
     public function login(DoctorLogin $request)
     {
         if (auth()->guard('doctor')->attempt(['email' => $request->email, 'password' => $request->password])) {
+
             $doctor = auth()->guard('doctor')->user();
+
             $patients = $doctor->patients()->whereDoesntHave('treatment')->get(); // select the patients who not get treatment
+
             if (! $doctor->hasRole('doctor')) {
+
                 $doctor->assignRole('doctor');
             }
+
             if (! $doctor->hasPermissionTo('patient_treatment')) {
+
                 $doctor->givePermissionTo('patient_treatment');
             }
 
             return view('doctor.profile', compact('doctor', 'patients'));
 
         } else {
+
             return redirect()->route('showDoctor.login');
         }
 
@@ -75,12 +81,30 @@ class DoctorContorller extends Controller
         return view('doctor.profile', compact('doctor', 'patients'));
     }
 
-    public function showDoctors()
+    public function showDoctors(Request $request)
     {
         $doctors = Doctor::all();
 
         return view('doctor.list', compact('doctors'));
-    }
+
+        // if($request->ajax()) {
+        //     $doctors = Doctor::all();
+
+        //     return DataTables::of($doctors)
+        //     ->addIndexColumn()
+        //     ->addColumn('action', function ($doctor) {
+
+        //        return '<button data-id="'. $doctor->id. '" class btn> Delete </button>';
+
+            
+        //     })
+
+        //     ->rawColumns(['action'])
+        //     ->make(true);
+        // }
+        //     return view('doctor.list');
+        }
+    
 
     public function treatment($id)
     {
@@ -92,9 +116,13 @@ class DoctorContorller extends Controller
     public function PatientTreatment(Request $request)
     {
         $patient = Patient::find(Crypt::decrypt($request->patient_id));
+
         $treatment = new Treatment;
+
         $treatment->doctor_id = $patient->doctor->id;
+
         $treatment->patient_id = $patient->id;
+        
         $treatment->treatment_description = $request->treatment_description;
         
         if($request->additional_notes)
@@ -112,6 +140,7 @@ class DoctorContorller extends Controller
     public function delete($id)
     {
         $doctor = Doctor::find(Crypt::decrypt($id));
+
         $doctor->delete();
 
         return redirect()->route('doctor.show')->with('message', 'Successfully deleted '.$doctor->name);
@@ -127,30 +156,45 @@ class DoctorContorller extends Controller
     public function update(DoctorUpdate $request)
     {
         $doctor = Doctor::find(Crypt::decrypt($request->id));
+
         $input = [
             'name' => $request->name,
+
             'email' => $request->email,
+
             'phone' => $request->phone,
+
             'specialized' => $request->specialized,
         ];
         if ($request->has('image')) {
+
             $fileName = time().'_'.$request->image->getClientOriginalExtension();
+
             Storage::putFileAs('uploads/images', $request->image, $fileName);
+
             $input['image'] = $fileName;
         }
         $doctor->update($input);
+
         $doctor->save();
 
         return redirect()->route('doctor.show');
     }
 
     public function getPatient(Request $request) // search patient
-    {$doctorId = Crypt::decrypt($request->doctor_id);
+    {
+        $doctorId = Crypt::decrypt($request->doctor_id);
+
         $doctor = Doctor::find($doctorId);
+
         $patient = $doctor->patients()->where('name', 'like', '%'.$request->patientName.'%')->get();
+
         if ($patient->isNotEmpty()) {
+
             return view('doctor.patient', compact('patient'));
+
         } else {
+
             return view('doctor.patient', ['message' => 'No patient found.']);
         }
 
@@ -159,6 +203,7 @@ class DoctorContorller extends Controller
     public function logout($id)
     {
         $doctor = Doctor::find(Crypt::decrypt($id));
+
         auth()->guard('doctor')->logout();
 
         return redirect()->route('showDoctor.login');

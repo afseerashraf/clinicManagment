@@ -23,8 +23,11 @@ class DoctorUpdate extends FormRequest
     {
         return [
             'name' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
+
             'email' => ['required', 'email'],
+
             'phone' => ['required', 'numeric',  'digits_between:10,12'],
+            
             'specialized' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
 
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',

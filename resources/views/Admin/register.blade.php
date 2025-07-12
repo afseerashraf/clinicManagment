@@ -2,44 +2,52 @@
 
 @section('title', 'Admin Register')
 <link rel="stylesheet" href="{{ asset('admin/css/register.css') }}">
-@section('content')
 
-<div class="container">
-    <div class="register-container">
-        <h3>Admin Register Form</h3>
-        <a href="{{ route('showAdmin.login') }}">Already have an account?</a>
+@section('content')
+<div class="form-wrapper">
+    <div class="register-box">
+        <h2>Admin Register</h2>
+        <p class="login-link">
+            Already have an account?
+            <a href="{{ route('showAdmin.login') }}">Login here</a>
+        </p>
 
         <form action="{{ route('admin.register') }}" method="POST">
             @csrf
-            <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" name="name" placeholder="Name" value="{{ old('name') }}">
-                @error('name') <div class="alert alert-danger">{{ $message }}</div> @enderror
+
+            <!-- Name -->
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" name="name" placeholder="Enter your full name" value="{{ old('name') }}">
+                @error('name') <p class="error">{{ $message }}</p> @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
-                @error('email') <div class="alert alert-danger">{{ $message }}</div> @enderror
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" name="email" placeholder="Enter your email" value="{{ old('email') }}">
+                @error('email') <p class="error">{{ $message }}</p> @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="phone" class="form-label">Phone</label>
-                <input type="text" class="form-control" name="phone" placeholder="Phone" value="{{ old('phone') }}">
-                @error('phone') <div class="alert alert-danger">{{ $message }}</div> @enderror
+            <!-- Phone -->
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" name="phone" placeholder="Enter your phone number" value="{{ old('phone') }}">
+                @error('phone') <p class="error">{{ $message }}</p> @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Password">
-                @error('password') <div class="alert alert-danger">{{ $message }}</div> @enderror
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" placeholder="Create a password">
+                @error('password') <p class="error">{{ $message }}</p> @enderror
             </div>
 
-            <div class="d-grid">
-                <button type="submit" class="btn btn-outline-primary">Register</button>
+            <!-- Submit -->
+            <div class="form-group">
+                <button type="submit" class="btn-submit">Register</button>
             </div>
         </form>
     </div>
 </div>
-
 @endsection

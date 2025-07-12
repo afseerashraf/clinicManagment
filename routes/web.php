@@ -9,6 +9,7 @@ use App\Http\Controllers\TreatmentController;
 use App\Http\Middleware\Receptionist;
 use App\Models\Treatment;
 use Illuminate\Support\Facades\Route;
+use App\Models\Admin;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,11 +17,11 @@ Route::get('/', function () {
 
 // admin
 Route::prefix('admin')->controller(AdminController::class)->group(function () {
-    Route::get('/', 'index')->name('showAdmin.register');
-
+    Route::view('admin', 'admin.register')->name('showAdmin.register');
+    
     Route::post('register', 'register')->name('admin.register');
 
-    Route::get('login', 'adminLogin')->name('showAdmin.login');
+    Route::view('login', 'admin.login')->name('showAdmin.login');
 
     Route::post('dologin', 'login')->name('admin.login');
 
@@ -31,12 +32,12 @@ Route::prefix('admin')->controller(AdminController::class)->group(function () {
 
     Route::group(['middleware' => ['auth:admin', 'permission:manage users']], function () {
 
-        Route::get('dashboard', 'dashoard')->name('admin.dashboard'); // admin can handle the all users.
+        Route::view('dashboard', 'admin.dashoard')->name('admin.dashboard'); // admin can handle the all users.
 
         Route::get('logout/{id}', 'logout')->name('admin.logout');
     });
 
-    Route::get('forget', 'viewsendEmail')->name('viewsendEmail');
+    Route::view('forget', 'admin.forgotEmail')->name('viewsendEmail');
 
     Route::post('passwordreset', 'sendPasswordResetMail')->name('sendPasswordResetMail');
 
@@ -48,11 +49,11 @@ Route::prefix('admin')->controller(AdminController::class)->group(function () {
 // Doctor
 Route::prefix('doctor')->controller(DoctorContorller::class)->group(function () {
 
-    Route::get('doctor', 'index')->name('doctor.index');
+    Route::view('doctor', 'doctor.register')->name('doctor.index');
 
     Route::post('register', 'register')->name('doctor.register');
 
-    Route::get('login', 'doctorLogin')->name('showDoctor.login');
+    Route::view('login', 'doctor.login')->name('showDoctor.login');
 
     Route::post('dologin', 'login')->name('doctor.doLogin');
 
@@ -153,3 +154,4 @@ Route::group(['middleware' => ['auth:receptionist', 'permission:manage_patients'
 
     });
 });
+

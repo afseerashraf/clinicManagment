@@ -17,6 +17,7 @@ class AuthDoctor
     {
 
         if (auth()->guard('doctor')->check()) {
+            
             return $next($request);
         }
 

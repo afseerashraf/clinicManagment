@@ -23,6 +23,7 @@ class BillRequest extends FormRequest
     {
         return [
             'doctor_fees' => ['required', 'numeric'],
+            
             'treatment_fees' => ['required', 'numeric'],
         ];
     }

@@ -25,10 +25,15 @@ class DoctorRequest extends FormRequest
         return [
 
             'name' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
+
             'email' => ['required', 'email'],
+
             'phone' => ['required', 'numeric',  'digits_between:10,12'],
+
             'specialized' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
+
             'password' => ['required', password::min(8)->letters()->numbers()],
+            
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
 
         ];

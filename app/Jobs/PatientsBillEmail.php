@@ -21,6 +21,7 @@ class PatientsBillEmail implements ShouldQueue
     public function __construct($paybill, $pdfPath)
     {
         $this->patientBill = $paybill;
+        
         $this->pdfPath = $pdfPath;
     }
 

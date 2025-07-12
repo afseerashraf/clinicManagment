@@ -22,6 +22,7 @@ class ReceptionistForgotPassword extends Mailable
     public function __construct($receptionist, $token)
     {
         $this->receptionist = $receptionist;
+        
         $this->token = $token;
     }
 

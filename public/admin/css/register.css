@@ -1,24 +1,92 @@
-    .register-container {
-        padding-top: 50px;
-        background-color: #f2e7e5;
-        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        width: 100%;
-        max-width: 500px;
-        margin: 0 auto;
-    }
+body {
+    background-color: #f4f6f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-    .register-container h3 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+}
 
-    .register-container form {
-        padding: 20px;
-    }
+.register-box {
+    background-color: #fff;
+    padding: 40px 30px;
+    border-radius: 10px;
+    max-width: 450px;
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
 
-    .register-container a {
-        display: block;
-        margin-bottom: 15px;
-        text-align: center;
-    }
+.register-box h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.login-link {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 14px;
+    color: #555;
+}
+
+.login-link a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #444;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: border 0.3s;
+}
+
+input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.error {
+    color: #e74c3c;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.btn-submit {
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn-submit:hover {
+    background-color: #0056b3;
+}

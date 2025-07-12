@@ -14,6 +14,7 @@ class PatientbillsController extends Controller
     public function payBill(PaybillRequest $request)
     {
         $payBill = new Bill;
+
         $payBill->treatment_id = Crypt::decrypt($request->treatment_id);
 
         $payBill->doctor_fees = $request->doctor_fees;
@@ -21,17 +22,22 @@ class PatientbillsController extends Controller
         if ($request->has('additional_charge')) {
 
             $payBill->additional_charges = $request->additional_charge;
+
             $payBill->total_amount = $payBill->doctor_fees + $payBill->additional_charge;
         
         } else {
             
             $payBill->total_amount = $payBill->doctor_fees;
         }
+
         $payBill->check_out = now();
+
         $payBill->save();
 
         $pdf = PDF::loadView('bill.pdfBill', compact('payBill')); // Use a blade view to format the bill
+
         $pdfPath = storage_path('app/public/bills/'.'bill_'.$payBill->id.'.pdf');
+        
         $pdf->save($pdfPath);
 
         PatientsBillEmail::dispatch($payBill, $pdfPath);

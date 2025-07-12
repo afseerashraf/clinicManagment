@@ -24,9 +24,13 @@ class ReceptionistRequest extends FormRequest
     {
         return [
             'name' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
+
             'email' => ['required', 'email'],
+
             'place' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
+
             'phone' => ['required', 'numeric',  'digits_between:10,12'],
+            
             'password' => ['required', password::min(8)->letters()->numbers()],
         ];
     }

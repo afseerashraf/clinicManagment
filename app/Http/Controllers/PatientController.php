@@ -7,6 +7,7 @@ use App\Http\Requests\PatientRequest;
 use App\Models\Doctor;
 use App\Models\Patient;
 use Illuminate\Support\Facades\Crypt;
+use Carbon\Carbon;
 
 class PatientController extends Controller
 {
@@ -20,20 +21,45 @@ class PatientController extends Controller
     public function create(PatientRequest $request)
     {
         $patient = new Patient;
+
         $patient->appoinment_date = $request->date;
+
         $patient->name = $request->name;
+
         $patient->age = $request->age;
+
         $patient->phone = $request->phone;
+
         $patient->email = $request->email;
+
         $patient->place = $request->place;
+
         $patient->house = $request->house;
+
         $patient->medical_history = $request->medicalHistory;
+
         $patient->doctor_id = $request->doctor_id;
+
         $patient->check_in = now();
+
         $patient->save();
+
         CreatePatient::dispatch($patient);
 
-        return redirect()->back()->with('register', 'Successfully register '.$patient->name);
+        if(Carbon::parse($patient->appoinment_date->isToday()))
+        {
+                // This block runs only if the appointment date is today
+                // Example: Send notification to the doctor
+            return "The patient's appoinment is today";
+        } else {
+            return redirect()->back()->with('register', 'Successfully register '.$patient->name);
+
+        }
+
+
+        
+
+        
     }
 
     public function show()
@@ -46,6 +72,7 @@ class PatientController extends Controller
     public function edit($id)
     {
         $patient = Patient::find(Crypt::decrypt($id));
+
         $doctors = Doctor::all();
 
         return view('patient.edit', compact('patient', 'doctors'));
@@ -54,15 +81,24 @@ class PatientController extends Controller
     public function update(PatientRequest $request)
     {
         $patient = Patient::find(Crypt::decrypt($request->patient_id));
+
         $patient->update([
             'appoinment_date' => $request->date,
+
             'name' => $request->name,
+
             'age' => $request->age,
+
             'phone' => $request->phone,
+
             'email' => $request->email,
+
             'place' => $request->place,
+
             'house' => $request->house,
+
             'medical_history' => $request->medicalHistory,
+
             'doctor_id' => $request->doctor_id,
         ]);
 
@@ -72,6 +108,7 @@ class PatientController extends Controller
     public function destroy($id)
     {
         $patient = Patient::find(Crypt::decrypt($id));
+        
         $patient->delete();
 
         return redirect()->route('patient.show')->with('messege', $patient->name.'succefully deleted');

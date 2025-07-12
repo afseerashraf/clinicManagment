@@ -11,6 +11,7 @@
     @if(session('message'))
         <div class="alert alert-success">{{ session('message') }}</div>
     @endif
+  
     <table class="table">
         <thead>
             <tr>
@@ -48,8 +49,24 @@
                 </tr>
             @endforeach
         </tbody>
-    </table>
- 
+    </table> 
+ {{-- <table id="doctors" class="displayDoctors">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Doctor Name</th>
+                <th>Doctor Email</th>
+                <th>Phone</th>
+                <th>Specialization</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+ </table> --}}
 </div>
+
 
 @endsection

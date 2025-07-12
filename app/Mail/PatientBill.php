@@ -23,6 +23,7 @@ class PatientBill extends Mailable
     public function __construct($patientBill, $pdfPath)
     {
         $this->patientBill = $patientBill;
+        
         $this->pdfPath = $pdfPath;
     }
 

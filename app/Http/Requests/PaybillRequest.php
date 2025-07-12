@@ -23,6 +23,7 @@ class PaybillRequest extends FormRequest
     {
         return [
             'doctor_fees' => ['required', 'numeric'],
+            
             'additional_charge' => ['numeric', 'nullable'],
         ];
     }

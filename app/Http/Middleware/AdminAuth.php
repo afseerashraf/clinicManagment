@@ -18,6 +18,7 @@ class AdminAuth
         if(!auth()->guard('admin')->check()) {
 
          return redirect()->route('showAdmin.login');
+         
         } else {
 
             return $next($request);

@@ -22,6 +22,7 @@ class AdminPasswordResetMail extends Mailable
     public function __construct($admin, $token)
     {
         $this->admin = $admin;
+
         $this->token = $token;
     }
 
@@ -31,6 +32,7 @@ class AdminPasswordResetMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+            
             subject: 'Admin Password Reset Mail',
         );
     }
