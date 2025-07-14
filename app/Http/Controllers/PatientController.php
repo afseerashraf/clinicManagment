@@ -11,11 +11,13 @@ use Carbon\Carbon;
 
 class PatientController extends Controller
 {
+   
     public function index()
     {
         $doctors = Doctor::all();
 
         return view('patient.register', compact('doctors'));
+       
     }
 
     public function create(PatientRequest $request)

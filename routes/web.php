@@ -10,9 +10,10 @@ use App\Http\Middleware\Receptionist;
 use App\Models\Treatment;
 use Illuminate\Support\Facades\Route;
 use App\Models\Admin;
-
+use App\Models\Doctor;
 Route::get('/', function () {
-    return view('welcome');
+    $doctors = Doctor::all();
+    return view('home', compact('doctors'));
 });
 
 // admin
