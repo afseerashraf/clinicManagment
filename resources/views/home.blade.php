@@ -4,13 +4,13 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title></title>
+  <title>Clinic Managment</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="{{asset('home/img/favicon.png')}}" rel="icon">
-  <link href="{{asset('home/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+ {{--  <link href="{{asset('home/img/favicon.png')}}" rel="icon">
+  <link href="{{asset('home/img/apple-touch-icon.png')}}" rel="apple-touch-icon"> --}}
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -365,8 +365,9 @@
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-        <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
-          <div class="row">
+        <form action="{{ route('appointment') }}" method="post"  class="php-email-form">
+          @csrf
+        <div class="row">
             <div class="col-md-4 form-group">
               <input type="date" name="date" class="form-control" id="name" placeholder="Your Name" required="">
             </div>

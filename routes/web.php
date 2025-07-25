@@ -11,9 +11,16 @@ use App\Models\Treatment;
 use Illuminate\Support\Facades\Route;
 use App\Models\Admin;
 use App\Models\Doctor;
-Route::get('/', function () {
-    $doctors = Doctor::all();
-    return view('home', compact('doctors'));
+use App\Http\Controllers\HomeController;
+
+
+
+
+
+Route::controller(HomeController::class)->group(function(){
+    Route::get('', 'home');
+
+    Route::post('appoinment', 'appointment')->name('appointment');
 });
 
 // admin

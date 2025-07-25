@@ -209,4 +209,6 @@ class DoctorContorller extends Controller
         return redirect()->route('showDoctor.login');
 
     }
+
+    
 }

@@ -46,17 +46,18 @@ class PatientController extends Controller
 
         $patient->save();
 
-        CreatePatient::dispatch($patient);
+        return redirect()->back();
+        //CreatePatient::dispatch($patient);
 
-        if(Carbon::parse($patient->appoinment_date->isToday()))
-        {
-                // This block runs only if the appointment date is today
-                // Example: Send notification to the doctor
-            return "The patient's appoinment is today";
-        } else {
-            return redirect()->back()->with('register', 'Successfully register '.$patient->name);
+        // if(Carbon::parse($patient->appoinment_date->isToday()))
+        // {
+        //         // This block runs only if the appointment date is today
+        //         // Example: Send notification to the doctor
+        //     return "The patient's appoinment is today";
+        // } else {
+        //     return redirect()->back()->with('register', 'Successfully register '.$patient->name);
 
-        }
+        // }
 
 
         

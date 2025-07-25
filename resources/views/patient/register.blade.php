@@ -13,39 +13,39 @@
         @csrf
 
         <label for="date">Appointment Date</label>
-        <input type="date" name="date" id="date" required>
+        <input type="date" name="date" id="date" value="{{ old('date') }}">
         @error('date') <div class="error">{{ $message }}</div> @enderror
 
         <label for="name">Name</label>
-        <input type="text" name="name" id="name" placeholder="Enter full name" required>
+        <input type="text" name="name" id="name" placeholder="Enter full name" value="{{ old('name') }}">
         @error('name') <div class="error">{{ $message }}</div> @enderror
 
         <label for="age">Age</label>
-        <input type="numaric" name="age" id="age" placeholder="Enter age" required>
+        <input type="numaric" name="age" id="age" placeholder="Enter age" value="{{ old('age') }}" required>
         @error('age') <div class="error">{{ $message }}</div> @enderror
 
         <label for="phone">Phone</label>
-        <input type="tel" name="phone" id="phone" placeholder="Enter phone number" required>
+        <input type="tel" name="phone" id="phone" placeholder="Enter phone number" value="{{ old('phone') }}" required>
         @error('phone') <div class="error">{{ $message }}</div> @enderror
 
         <label for="email">Email</label>
-        <input type="email" name="email" id="email" placeholder="Enter email address" required>
+        <input type="email" name="email" id="email" placeholder="Enter email address" value="{{ old('email') }}" required>
         @error('email') <div class="error">{{ $message }}</div> @enderror
 
         <label for="place">Place</label>
-        <input type="text" name="place" id="place" placeholder="Enter place" required>
+        <input type="text" name="place" id="place" placeholder="Enter place" value="{{ old('place') }}" required>
         @error('place') <div class="error">{{ $message }}</div> @enderror
 
         <label for="house">House</label>
-        <input type="text" name="house" id="house" placeholder="Enter house name" required>
+        <input type="text" name="house" id="house" placeholder="Enter house name" value="{{ old('house') }}" required>
         @error('house') <div class="error">{{ $message }}</div> @enderror
 
         <label for="medicalHistory">Medical History</label>
-        <input type="text" name="medicalHistory" id="medicalHistory" placeholder="Enter medical history" required>
+        <input type="text" name="medicalHistory" id="medicalHistory" placeholder="Enter medical history" value="{{ old('medicalHistory') }}" required>
         @error('medicalHistory') <div class="error">{{ $message }}</div> @enderror
 
        <label for="doctor">Select Doctor</label>
-        <select name="doctor_id" id="doctor" required>
+        <select name="doctor_id" id="doctor" value="{{ old('doctor_id') }}" required>
             <option value="">--Select Doctor--</option>
             @foreach($doctors as $doctor)
             <option value="{{ $doctor->id }}">{{ $doctor->name }} ({{ $doctor->specialized }})</option>
