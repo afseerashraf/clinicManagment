@@ -2,159 +2,180 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@yield('title', 'Clinic Management')</title>
 
-    <link rel="stylesheet" href="{{ asset('sidebar/sidebar.css') }}">
-    <script src="{{ asset('sidebar/sidebar.js') }}"></script>
-    <title>@yield('title')</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <style>
-        /* General Layout */
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f6f9;
-        }
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      overflow-x: hidden;
+    }
 
-        .navbar {
-            background-color: #0d6efd;
-        }
+    /* Navbar */
+    .navbar {
+      background: #0d6efd;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1050;
+    }
 
-        .navbar-brand h4 {
-            color: white;
-            font-weight: bold;
-            margin-left: 176px;
-            
-        }
+    .navbar-brand {
+      font-weight: 600;
+      color: #fff !important;
+      letter-spacing: 0.5px;
+    }
 
-        .navbar-light .navbar-toggler {
-            color: white;
-            border-color: white;
-        }
+    .navbar .dropdown-menu {
+      right: 0;
+      left: auto;
+    }
 
-        .navbar-light .navbar-toggler-icon {
-            color: white;
-        }
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 230px;
+      background: #0d6efd;
+      color: #fff;
+      padding-top: 70px;
+      transition: all 0.3s ease-in-out;
+    }
 
-        .btn-outline-success {
-            color: white;
-            border-color: white;
-        }
+    .sidebar.collapsed {
+      width: 70px;
+    }
 
-        .btn-outline-success:hover {
-            background-color: white;
-            color: #0d6efd;
-        }
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      color: #f1f1f1;
+      padding: 12px 20px;
+      text-decoration: none;
+      font-size: 15px;
+      transition: 0.3s;
+      border-left: 4px solid transparent;
+    }
 
-        /* Sidebar */
-        .sidebar {
-            height: 100vh;
-            position: fixed;
-            width: 183px;
-            top: 0;
-            left: 0;
-            background-color: #0d6efd;
-            padding-top: 20px;
-            color: white;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-        }
+    .sidebar a:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-left: 4px solid #fff;
+    }
 
-        .sidebar a {
-            display: block;
-            color: white;
-            padding: 15px;
-            text-decoration: none;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
+    .sidebar i {
+      margin-right: 10px;
+      font-size: 18px;
+    }
 
-        .sidebar a:hover {
-            background-color: #0b5ed7;
-            color: #fff;
-        }
+    .sidebar.collapsed a span {
+      display: none;
+    }
 
-        /* Main Content */
-        .content {
-            margin-left: 250px;
-            padding: 20px;
-            background-color:#f4f6f9;
-        }
+    /* Main Content */
+    .content {
+      margin-left: 230px;
+      padding: 30px;
+      transition: all 0.3s;
+    }
 
-        .container-fluid {
-            margin-top: 10px;
-        }
+    .sidebar.collapsed~.content {
+      margin-left: 70px;
+    }
 
-        .search-bar {
-            width: 300px;
-        }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 15px 0;
+      color: #999;
+      font-size: 14px;
+      margin-top: 40px;
+    }
 
-        /* Footer */
-        footer {
-            margin-top: 20px;
-            text-align: center;
-            color: #999;
-        }
-    </style>
+    @media (max-width: 992px) {
+      .sidebar {
+        left: -230px;
+      }
+
+      .sidebar.show {
+        left: 0;
+      }
+
+      .content {
+        margin-left: 0;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container-fluid px-4">
+      <button class="btn btn-outline-light me-3" id="toggleSidebar">
+        <i class="fas fa-bars"></i>
+      </button>
+      <a class="navbar-brand" href="#">Clinic Management</a>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <h4>Clinic Management</h4>
-            </a>
-           
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarContent">
-                <form class="d-flex ms-auto">
-                    <input class="form-control me-2 search-bar" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-       
-    <!-- Sidebar -->
-    <div class="sidebar">
-       
-        @if(auth()->guard('receptionist')->check() && auth()->guard('receptionist')->user()->hasRole('receptionist'))
-        <a href="{{ route('receptionist.profile') }}"><i class="fas fa-user"></i> Profile</a>
-        <a href="{{ route('patient.index') }}"> Register Patient</a>
-        <a href="{{ route('patient.show') }}">Patients</a>
-        <a href="{{ route('unpaid.patients') }}">Unpaid Patients</a>
-        <a href="{{ route('show.paidPatients') }}">Paid Patients</a>
-        
-        @endif
+      <div class="dropdown ms-auto">
+        <a href="#" class="text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
+          <i class="fas fa-user-circle fa-lg"></i> Admin
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><a class="dropdown-item" href="#">Settings</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
+        </ul>
+      </div>
     </div>
+  </nav>
 
-    <!-- Main Content -->
-    <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    @yield('content')
-                </div>
-            </div>
-        </div>
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebarMenu">
+    @if(auth()->guard('receptionist')->check() && auth()->guard('receptionist')->user()->can('manage_patients'))
+      <a href="{{ route('receptionist.profile') }}"><i class="fas fa-user"></i><span>Profile</span></a>
+      <a href="{{ route('patient.index') }}"><i class="fas fa-user-plus"></i><span>Register Patient</span></a>
+      <a href="{{ route('patient.show') }}"><i class="fas fa-users"></i><span>Patients</span></a>
+      <a href="{{ route('unpaid.patients') }}"><i class="fas fa-file-invoice-dollar"></i><span>Unpaid Patients</span></a>
+      <a href="{{ route('show.paidPatients') }}"><i class="fas fa-money-bill"></i><span>Paid Patients</span></a>
+    @endif
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <div class="container-fluid">
+      @yield('content')
     </div>
 
     <footer>
-        <p>&copy; 2024 Clinic Management. All Rights Reserved.</p>
+      <p>&copy; {{ date('Y') }} Clinic Management System. All Rights Reserved.</p>
     </footer>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebarMenu');
 
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+    });
 
-
+    // Responsive sidebar toggle for mobile
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth < 992 && !sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+        sidebar.classList.remove('show');
+      }
+    });
+  </script>
 </body>
-
-
 
 </html>

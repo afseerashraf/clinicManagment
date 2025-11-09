@@ -42,6 +42,9 @@
                 <a href="{{ url('admin/auth/redirect') }}">Login with Github</a>
             </div>
         </form>
+
+        {{-- <div class="danger">{{ Session('error')}}</div> --}}
+
     </div>
 </div>
 

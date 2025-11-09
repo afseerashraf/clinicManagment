@@ -14,6 +14,8 @@ class Admin extends Authenticatable
 
     protected $fillable = ['name', 'email', 'phone', 'password'];
 
+  
+
     protected function casts(): array
     {
         return [

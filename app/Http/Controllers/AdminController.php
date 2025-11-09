@@ -6,12 +6,12 @@ use App\Http\Requests\AdminLogin;
 use App\Http\Requests\AdminRequest;
 use App\Mail\AdminPasswordResetMail;
 use App\Models\Admin;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
-
 class AdminController extends Controller
 {
 
@@ -54,6 +54,7 @@ class AdminController extends Controller
 
         } else {
 
+            session(['error' => 'unauthenicate user']);
             return redirect()->route('showAdmin.login');
         }
     }
@@ -70,7 +71,7 @@ class AdminController extends Controller
         $githubUser = Socialite::driver('github')->user();
 
         dd($githubUser);
-   
+
     //     $admin = Admin::updateOrcreate([
 
     //         'github_id' => $githubUser->id,
@@ -110,7 +111,7 @@ class AdminController extends Controller
         ]);
 
         $admin = Admin::where('email', $request->email)->first();
-        
+
         if ($admin) {
 
          $token = str::random(64);
@@ -175,7 +176,7 @@ class AdminController extends Controller
             toastr()->success('successfully reseted password!');
 
             return redirect()->route('showAdmin.login');
-            
+
         } else {
 
             return redirect()->route('viewsendEmail');

@@ -360,6 +360,7 @@
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Appointment</h2>
+        
         <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
       </div><!-- End Section Title -->
 
@@ -403,12 +404,12 @@
                 <option value="">Select Doctor</option>
                 @foreach($doctors as $doctor)
                 <option value="{{ $doctor->id}}">{{ $doctor->name }} ({{ $doctor->specialized }}) </option>
-                @endforeach  
+                @endforeach
             </select>
-            </div> 
+            </div>
           </div>
 
-         
+
           <div class="mt-3">
             <div class="loading">Loading</div>
             <div class="error-message"></div>

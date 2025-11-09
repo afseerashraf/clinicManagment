@@ -15,7 +15,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class DoctorContorller extends Controller
 {
-    
+
     public function register(DoctorRequest $request)
     {
         $input = [
@@ -43,7 +43,7 @@ class DoctorContorller extends Controller
         return redirect()->route('showDoctor.login');
     }
 
-    
+
 
     public function login(DoctorLogin $request)
     {
@@ -96,7 +96,7 @@ class DoctorContorller extends Controller
 
         //        return '<button data-id="'. $doctor->id. '" class btn> Delete </button>';
 
-            
+
         //     })
 
         //     ->rawColumns(['action'])
@@ -104,7 +104,7 @@ class DoctorContorller extends Controller
         // }
         //     return view('doctor.list');
         }
-    
+
 
     public function treatment($id)
     {
@@ -115,6 +115,7 @@ class DoctorContorller extends Controller
 
     public function PatientTreatment(Request $request)
     {
+        
         $patient = Patient::find(Crypt::decrypt($request->patient_id));
 
         $treatment = new Treatment;
@@ -122,12 +123,12 @@ class DoctorContorller extends Controller
         $treatment->doctor_id = $patient->doctor->id;
 
         $treatment->patient_id = $patient->id;
-        
+
         $treatment->treatment_description = $request->treatment_description;
-        
+
         if($request->additional_notes)
         {
-           
+
             $treatment->additional_notes = $request->additional_notes;
 
         }
@@ -210,5 +211,5 @@ class DoctorContorller extends Controller
 
     }
 
-    
+
 }

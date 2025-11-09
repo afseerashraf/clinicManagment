@@ -26,7 +26,7 @@ Route::controller(HomeController::class)->group(function(){
 // admin
 Route::prefix('admin')->controller(AdminController::class)->group(function () {
     Route::view('admin', 'admin.register')->name('showAdmin.register');
-    
+
     Route::post('register', 'register')->name('admin.register');
 
     Route::view('login', 'admin.login')->name('showAdmin.login');
@@ -40,7 +40,7 @@ Route::prefix('admin')->controller(AdminController::class)->group(function () {
 
     Route::group(['middleware' => ['auth:admin', 'permission:manage users']], function () {
 
-        Route::view('dashboard', 'admin.dashoard')->name('admin.dashboard'); // admin can handle the all users.
+        Route::view('dashboard', 'admin.dashboard')->name('admin.dashboard'); // admin can handle the all users.
 
         Route::get('logout/{id}', 'logout')->name('admin.logout');
     });
