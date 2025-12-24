@@ -1,6 +1,6 @@
 @extends('layout.adminLayout')
 
-@section('title', 'Admin Dashboard') 
+@section('title', 'Admin Dashboard')
 <link rel="stylesheet" href="{{ asset('doctor/css/list.css') }}">
 @section('content')
 
@@ -11,7 +11,7 @@
     @if(session('message'))
         <div class="alert alert-success">{{ session('message') }}</div>
     @endif
-  
+
     <table class="table">
         <thead>
             <tr>
@@ -25,9 +25,9 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($doctors as $doctor)  
+            @foreach($doctors as $doctor)
                 <tr>
-                    
+
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ ucwords($doctor->name) }}</td>
                     <td>{{ $doctor->email }}</td>
@@ -45,11 +45,11 @@
                         <a href="{{ route('edit.doctor', encrypt($doctor->id)) }}" class="btn btn-outline-danger">Update</a>
 
                    </td>
-                   
+
                 </tr>
             @endforeach
         </tbody>
-    </table> 
+    </table>
  {{-- <table id="doctors" class="displayDoctors">
         <thead>
             <tr>
@@ -70,3 +70,5 @@
 
 
 @endsection
+
+

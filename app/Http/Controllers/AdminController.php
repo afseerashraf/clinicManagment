@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
+
 class AdminController extends Controller
 {
 
@@ -50,11 +51,12 @@ class AdminController extends Controller
             }
             session(['admin' => $admin]);
 
-            return view('admin.dashboard', compact('admin'));
+            return view('admin.dashboard');
 
         } else {
 
             session(['error' => 'unauthenicate user']);
+            
             return redirect()->route('showAdmin.login');
         }
     }
@@ -95,6 +97,8 @@ class AdminController extends Controller
         $admin = Admin::find(Crypt::decrypt($id));
 
         auth()->guard('admin')->logout();
+
+        session()->flush();
 
         return redirect()->route('showAdmin.login');
     }

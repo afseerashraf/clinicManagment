@@ -11,7 +11,7 @@
 
     <form action="{{ route('doctor.doLogin') }}" method="post">
         @csrf
-        
+
         <div class="form-group">
             <label for="name">Email</label>
             <input type="email" class="form-control" name="email" placeholder="email" value="{{ old('email') }}">
@@ -25,6 +25,9 @@
         </div>
 
         <button type="submit" class="btn">Login</button>
+
+        <a href="{{ route('doctor.doctorForgotPassword') }}" class="">Forgot Password?</a>
+
     </form>
 </div>
 

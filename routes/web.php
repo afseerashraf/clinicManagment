@@ -87,8 +87,17 @@ Route::prefix('doctor')->controller(DoctorContorller::class)->group(function () 
         Route::get('getpatient', 'getPatient')->name('getPatient');
 
         Route::get('logout/{id}', 'logout')->name('doctor.logout');
+
+        Route::get('chat/{id}', 'chatPatient')->name('doctor.chatPatient');
     });
 
+    Route::view('forgot', 'doctor.forgetPassword')->name('doctor.doctorForgotPassword');
+
+    Route::POST('passwordRest', 'sendPasswordResetMail')->name('Doctor.sendPasswordResetMail');
+
+    Route::GET('viewreset/{token}', 'viewResetForm')->name('doctor.viewResetForm');
+
+    Route::POST('resetpassword', 'resetPassword')->name('doctor.resetedPassword');
 });
 
 // Receptionist
@@ -163,3 +172,5 @@ Route::group(['middleware' => ['auth:receptionist', 'permission:manage_patients'
     });
 });
 
+
+Route::view('subscription', 'doctor.subscription');

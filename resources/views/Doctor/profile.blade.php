@@ -53,6 +53,10 @@
                 <td>{{ $patient->medical_history }}</td>
                 <td>
                     <a href="{{ route('doctor.treatment', encrypt($patient->id)) }}" class="btn btn-outline-primary">Treatment</a>
+
+                    <a href="{{ route('doctor.chatPatient', encrypt($patient->id)) }}", class="btn btn-outline-success">chat</a>
+
+
                 </td>
             </tr>
             @endforeach

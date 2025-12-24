@@ -3,13 +3,15 @@
 @section('title', 'Doctor Profile')
 
 @section('content')
+
+
 @if(isset($patient) && $patient->isNotEmpty())
     <table class="table">
         <thead>
             <tr>
                 <th>Patient Name</th>
                 <th>Check-in Time</th>
-               
+
             </tr>
         </thead>
         <tbody>
@@ -17,7 +19,7 @@
                 <tr>
                     <td>{{ $patient->name }}</td>
                     <td>{{ $patient->check_in}}</td>
-                    
+
                 </tr>
             @endforeach
         </tbody>

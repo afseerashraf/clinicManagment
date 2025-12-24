@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Doctor\DoctorPasswordResetMail;
 
 class DoctorContorller extends Controller
 {
@@ -115,7 +118,7 @@ class DoctorContorller extends Controller
 
     public function PatientTreatment(Request $request)
     {
-        
+
         $patient = Patient::find(Crypt::decrypt($request->patient_id));
 
         $treatment = new Treatment;
@@ -201,6 +204,28 @@ class DoctorContorller extends Controller
 
     }
 
+// Doctor chat with online cunsult patient
+public function chatPatient($id)
+{
+    $patient_ID = Crypt::decrypt($id);
+
+    $patient = Patient::findOrFail($patient_ID);
+
+    if($patient)
+    {
+        return view('doctor.chatPatient', compact('patient'));
+    }else {
+
+        return redirect()->back()->with('messege', 'Can not find Online cunsult Patient');
+    }
+
+
+}
+
+
+
+
+
     public function logout($id)
     {
         $doctor = Doctor::find(Crypt::decrypt($id));
@@ -210,6 +235,89 @@ class DoctorContorller extends Controller
         return redirect()->route('showDoctor.login');
 
     }
+
+
+    public function sendPasswordResetMail(Request $request)
+    {
+
+         $request->validate([
+
+            'email' => 'required',
+
+            'email',
+
+            'exists:doctors',
+        ]);
+
+        $checkMail = Doctor::where('email', $request->email)->first();
+
+        if($checkMail)
+        {
+            $token = str::random(64);
+
+            $checkMail->password_reset_token = $token;
+
+            $checkMail->save();
+
+            Mail::to($checkMail->email)->send(new DoctorPasswordResetMail($checkMail, $token));
+
+            return redirect()->back()->with('message', 'Password reset link sent to your email!');
+
+     } else {
+            return redirect()->back();
+        }
+
+
+
+
+    }
+
+    public function viewResetForm($token)
+    {
+        $doctor = Doctor::where('password_reset_token', $token)->first();
+
+        if($doctor)
+        {
+            $doctor->password_reset_token = 'null';
+
+            $doctor->save();
+
+            return view('doctor.resetPasswordForm', compact('doctor'));
+        } else {
+            return redirect()->route('showDoctor.login');
+        }
+    }
+
+    public function resetPassword(Request $request)
+    {
+       $request->validate([
+
+            'doctor_id' => 'required',
+
+            'password' => 'required|min:8|confirmed',
+
+        ]);
+
+        $doctor = Doctor::find(Crypt::decrypt($request->doctor_id));
+
+        if($doctor)
+        {
+            $doctor->update([
+                'password' => $request->password,
+            ]);
+
+            return redirect()->route('showDoctor.login');
+
+            toastr()->success("Successfully update you'r password" );
+
+        }else{
+
+            return redirect()->route('doctor.doctorForgotPassword');
+        }
+    }
+
+
+
 
 
 }
