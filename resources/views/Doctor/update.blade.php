@@ -36,32 +36,45 @@
             </div>
             @error('phone') <div class="alert">{{ $message }}</div> @enderror
         </div>
-
         <div class="form-group">
-            <label for="specialized">Specialization</label>
+            {{-- <label for="specialized">Specialization</label>
             <div class="input-group">
                 <i class="fas fa-stethoscope"></i>
                 <input type="text" class="form-control" name="specialized" placeholder="Specialization" value="{{ $doctor->specialized }}">
-            </div>
+            </div> --}}
+            <label for="specialized">Doctor Specialized</label>
+                <select name="specialized" id="specialized">
+                    <option value="{{ $doctor->specialized }}">{{ $doctor->specialized }}</option>
+                    <option value="cardiologist">Cardiologist</option>
+                    <option value="dermatologist">Dermatologist</option>
+                    <option value="neurologist">Neurologist</option>
+                    <option value="orthopedic">Orthopedic</option>
+                    <option value="pediatrician">Pediatrician</option>
+                    <option value="gynecologist">Gynecologist</option>
+                    <option value="psychiatrist">Psychiatrist</option>
+                    <option value="radiologist">Radiologist</option>
+                    <option value="dentist">Dentist</option>
+                    <option value="general_surgeon">General Surgeon</option>
+                </select>
             @error('specialized') <div class="alert">{{ $message }}</div> @enderror
         </div>
 
 
         <div class="form-group">
-            <label for="image">Profile Picture</label>
+            <label for="image">Photo</label>
 
             <!-- Show current image if it exists -->
-            @if($doctor->image)
+            {{-- @if($doctor->image)
                 <div class="mb-3">
                     <img src="{{ asset('storage/' . $doctor->image) }}" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%;">
                 </div>
-            @endif
+            @endif --}}
 
             <input type="file" class="form-control" name="image">
             @error('image') <div class="alert">{{ $message }}</div> @enderror
         </div>
 
-        <button type="submit" class="btn">Update</button>
+        <button type="submit" class="btn btn-outline-primary">Update</button>
     </form>
 </div>
 

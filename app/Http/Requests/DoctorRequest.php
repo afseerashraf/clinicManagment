@@ -34,7 +34,7 @@ class DoctorRequest extends FormRequest
 
             'password' => ['required', password::min(8)->letters()->numbers()],
 
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
 
         ];
     }

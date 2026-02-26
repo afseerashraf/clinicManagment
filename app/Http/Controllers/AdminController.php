@@ -56,7 +56,7 @@ class AdminController extends Controller
         } else {
 
             session(['error' => 'unauthenicate user']);
-            
+
             return redirect()->route('showAdmin.login');
         }
     }
@@ -94,7 +94,7 @@ class AdminController extends Controller
 
     public function logout($id)
     {
-        $admin = Admin::find(Crypt::decrypt($id));
+        // $admin = Admin::find(Crypt::decrypt($id));
 
         auth()->guard('admin')->logout();
 
@@ -187,3 +187,5 @@ class AdminController extends Controller
         }
     }
 }
+
+

@@ -174,3 +174,4 @@ Route::group(['middleware' => ['auth:receptionist', 'permission:manage_patients'
 
 
 Route::view('subscription', 'doctor.subscription');
+

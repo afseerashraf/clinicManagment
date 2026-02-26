@@ -72,8 +72,9 @@
             </div>
 
             <div class="form-group">
-                <label for="image">Profile Picture</label>
+                <label for="image">Photo</label>
                 <input type="file" class="form-control" name="image">
+                @error('image') <div class="alert">{{ $message }}</div>@enderror
             </div>
             <div id="response" class="mt-3"></div>
 

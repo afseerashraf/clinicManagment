@@ -4,10 +4,12 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Clinic Managment</title>
+  <title>Clinic Managment System | Laravel Hospital software</title>
   <meta name="description" content="">
-  <meta name="keywords" content="">
-
+  <meta name="keywords" content="Pwerful clinic Managment System build with Laravel. Manage doctors, patients, appointments, perscription, billing, and reports efficiently in one secure platform.">
+  <meta property="og:title" content="Clinic Managment System | Laravel Hospital Software">
+  <meta proporty="og:description" content="Manage doctors, patients, appoinments and billing with this powerful Laravel clinic managment system.">
+  <meta proporty="og:type" content="website">
   <!-- Favicons -->
  {{--  <link href="{{asset('home/img/favicon.png')}}" rel="icon">
   <link href="{{asset('home/img/apple-touch-icon.png')}}" rel="apple-touch-icon"> --}}
@@ -119,13 +121,15 @@
         <div class="content row gy-4">
           <div class="col-lg-4 d-flex align-items-stretch">
             <div class="why-box" data-aos="zoom-out" data-aos-delay="200">
-              <h3>Why Choose Medilab?</h3>
+              <h3>Why Choose our Clinicmanagment System</h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
-                Asperiores dolores sed et. Tenetur quia eos. Autem tempore quibusdam vel necessitatibus optio ad corporis.
+                Our Laravel-based Clinic Managment System is designed to simplify modernize clinic operations.
+                From patient registation to appoitment scheculing, billing, and medical record managment,
+                the system encure smooth workflow, data security, and improve efficiency for dcotors,
+                receptionists, and administrators.
               </p>
               <div class="text-center">
-                <a href="#about" class="more-btn"><span>Learn More</span> <i class="bi bi-chevron-right"></i></a>
+                <a href="#about" class="more-btn"><span>Explore Features</span> <i class="bi bi-chevron-right"></i></a>
               </div>
             </div>
           </div><!-- End Why Box -->
@@ -137,24 +141,33 @@
                 <div class="col-xl-4 d-flex align-items-stretch">
                   <div class="icon-box" data-aos="zoom-out" data-aos-delay="300">
                     <i class="bi bi-clipboard-data"></i>
-                    <h4>Corporis voluptates officia eiusmod</h4>
-                    <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
+                    <h4>Smart Appointment Scheduling</h4>
+                    <p>
+                        Easily manage patient appointments, assign doctors based on specialization,
+                        and track appointment history with a centralized and organized system.
+                    </p>
                   </div>
                 </div><!-- End Icon Box -->
 
                 <div class="col-xl-4 d-flex align-items-stretch">
                   <div class="icon-box" data-aos="zoom-out" data-aos-delay="400">
                     <i class="bi bi-gem"></i>
-                    <h4>Ullamco laboris ladore pan</h4>
-                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
+                    <h4>Doctor & Patient Managment</h4>
+                    <p>
+                        Maintain detiled patient records, medical history, perscription,
+                        and doctor prfile with role-based access for secure and efficient handling.
+                    </p>
                   </div>
                 </div><!-- End Icon Box -->
 
                 <div class="col-xl-4 d-flex align-items-stretch">
                   <div class="icon-box" data-aos="zoom-out" data-aos-delay="500">
                     <i class="bi bi-inboxes"></i>
-                    <h4>Labore consequatur incidid dolore</h4>
-                    <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
+                    <h4>Billing & Report System</h4>
+                    <p>
+                        Generate accurate billing, manage payment, and access real-time reports
+                        to monitor clinic perfomance and financial activities effectively.
+                    </p>
                   </div>
                 </div><!-- End Icon Box -->
 
@@ -360,7 +373,7 @@
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Appointment</h2>
-        
+
         <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
       </div><!-- End Section Title -->
 
@@ -535,13 +548,15 @@
       <div class="container">
 
         <div class="row gy-4">
-
+@foreach($doctors as $doctor)
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
             <div class="team-member d-flex align-items-start">
-              <div class="pic"><img src="{{ asset('home/img/doctors/doctors-1.jpg') }}" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>Walter White</h4>
-                <span>Chief Medical Officer</span>
+          {{-- <div class="pic"><img src="{{ asset('home/img/doctors/doctors-1.jpg') }}" class="img-fluid" alt=""></div> --}}
+@if($doctor->image) <div class="pic"><img src="{{asset('storage/images/'.$doctor->image)}}" class="img-fluid" alt=""></div>@endif
+          <div class="member-info">
+
+                <h4>{{ strtoupper($doctor->name) }}</h4>
+                <span>{{ $doctor->specialized }}</span>
                 <p>Explicabo voluptatem mollitia et repellat qui dolorum quasi</p>
                 <div class="social">
                   <a href=""><i class="bi bi-twitter-x"></i></a>
@@ -552,8 +567,9 @@
               </div>
             </div>
           </div><!-- End Team Member -->
+        @endforeach
 
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+          {{-- <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
             <div class="team-member d-flex align-items-start">
               <div class="pic"><img src="{{ asset('home/img/doctors/doctors-2.jpg') }}" class="img-fluid" alt=""></div>
               <div class="member-info">
@@ -602,7 +618,7 @@
                 </div>
               </div>
             </div>
-          </div><!-- End Team Member -->
+          </div><!-- End Team Member --> --}}
 
         </div>
 

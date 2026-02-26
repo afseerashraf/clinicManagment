@@ -27,10 +27,10 @@ class DoctorUpdate extends FormRequest
             'email' => ['required', 'email'],
 
             'phone' => ['required', 'numeric',  'digits_between:10,12'],
-            
+
             'specialized' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
 
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:3072',
         ];
     }
 }
