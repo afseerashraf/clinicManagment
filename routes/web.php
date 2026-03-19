@@ -147,6 +147,8 @@ Route::group(['middleware' => ['auth:receptionist', 'permission:manage_patients'
 
         Route::get('delete/{id}', 'destroy')->name('patient.delete');
 
+        Route::get('restore/{id}', 'restore')->name('patient.restore');
+
     });
 
     Route::prefix('treatment')->controller(TreatmentController::class)->group(function () {
@@ -174,4 +176,5 @@ Route::group(['middleware' => ['auth:receptionist', 'permission:manage_patients'
 
 
 Route::view('subscription', 'doctor.subscription');
+
 

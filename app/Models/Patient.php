@@ -6,12 +6,13 @@ use App\Observers\PatientCreateMail;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[ObservedBy([PatientCreateMail::class])]
 
 class Patient extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = ['name', 'phone', 'email', 'place', 'house', 'medical_history', 'doctor_id'];
 

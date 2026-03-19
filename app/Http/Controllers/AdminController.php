@@ -51,7 +51,7 @@ class AdminController extends Controller
             }
             session(['admin' => $admin]);
 
-            return view('admin.dashboard');
+             return view('admin.dashboard');
 
         } else {
 

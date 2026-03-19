@@ -11,13 +11,13 @@ use Carbon\Carbon;
 
 class PatientController extends Controller
 {
-   
+
     public function index()
     {
         $doctors = Doctor::all();
 
         return view('patient.register', compact('doctors'));
-       
+
     }
 
     public function create(PatientRequest $request)
@@ -60,14 +60,14 @@ class PatientController extends Controller
         // }
 
 
-        
 
-        
+
+
     }
 
     public function show()
     {
-        $patients = Patient::orderBy('appoinment_date', 'desc')->get();
+        $patients = Patient::orderBy('appoinment_date', 'desc')->withTrashed()->get();
 
         return view('patient.appoinment', compact('patients'));
     }
@@ -111,10 +111,19 @@ class PatientController extends Controller
     public function destroy($id)
     {
         $patient = Patient::find(Crypt::decrypt($id));
-        
+
         $patient->delete();
 
         return redirect()->route('patient.show')->with('messege', $patient->name.'succefully deleted');
 
+    }
+
+    public function restore($id)
+    {
+        $id = Crypt::decrypt($id);
+        $patient = Patient::onlyTrashed()->findOrFail($id);
+        $patient->restore();
+
+        return redirect()->route('patient.show')->with('message', $patient->name.' successfully restored');
     }
 }
